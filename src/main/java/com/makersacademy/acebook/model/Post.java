@@ -1,7 +1,6 @@
 package com.makersacademy.acebook.model;
 
 import jakarta.persistence.*;
-
 import lombok.Data;
 
 @Data
@@ -12,7 +11,12 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Post() {}
 
@@ -20,4 +24,8 @@ public class Post {
         this.content = content;
     }
 
+    public Post(String content, User user) {
+        this.content = content;
+        this.user = user;
+    }
 }
