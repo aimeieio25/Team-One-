@@ -8,6 +8,9 @@
     </head>
     <body>
 
+    <div th:replace="~{header-footer/header :: header}"></div>
+    <h1>Welcome to Acebook </h1>
+
     <h1>Posts</h1>
 
     <div sec:authorize="isAuthenticated()" id="greeting">
