@@ -21,3 +21,4 @@ application-local.yml
 application-local.yaml
 application-dev.yml
 application-dev.yaml
+src/main/resources/application.yml
