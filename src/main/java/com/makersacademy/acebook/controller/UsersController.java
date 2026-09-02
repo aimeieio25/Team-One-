@@ -21,9 +21,14 @@ public class UsersController {
                 .getPrincipal();
 
         String username = (String) principal.getAttributes().get("email");
-        userRepository
+        String fullName = principal.getFullName();
+
+
+        User user = userRepository
                 .findUserByUsername(username)
-                .orElseGet(() -> userRepository.save(new User(username)));
+                .orElse(new User(username, fullName));
+
+        userRepository.save(user);
 
         return new RedirectView("/posts");
     }
