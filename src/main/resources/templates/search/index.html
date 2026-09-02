@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+
+<body>
+
+<div th:replace="~{header-footer/header :: header}"></div>
+
+<h1>Search</h1>
+
+<form th:action="@{/search}" method="get">
+    <input
+            type="text"
+            name="query"
+            th:value="${query}"
+            placeholder="Search users or posts..."
+            required>
+
+    <button type="submit">Search</button>
+</form>
+
+<div th:if="${query != ''}">
+
+    <h2>Users</h2>
+
+    <p th:if="${#lists.isEmpty(users)}">
+        No users found.
+    </p>
+
+    <div th:each="user : ${users}">
+        <p>
+            Name:
+            <span th:text="${user.fullName}"></span>
+        </p>
+    </div>
+
+    <h2>Posts</h2>
+
+    <p th:if="${#lists.isEmpty(posts)}">
+        No posts found.
+    </p>
+
+    <div th:each="post : ${posts}">
+        <p th:text="${post.content}"></p>
+
+        <p th:if="${post.user != null}">
+            Posted by:
+            <span th:text="${post.user.fullName}"></span>
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
