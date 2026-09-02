@@ -14,7 +14,7 @@
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
 
-        <textarea id="content" name="content" maxlength="250" required></textarea>
+        <textarea id="content" th:field="*{content}" maxlength="250" required></textarea>
         <span id="count">0</span>/250 characters
 
         <script>
