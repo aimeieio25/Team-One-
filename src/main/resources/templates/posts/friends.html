@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Friends</title>
+</head>
+
+<body>
+
+<h1>Friends</h1>
+
+<div th:each="friend : ${friends}">
+  <p th:text="${friend.username}"></p>
+</div>
+
+<h2>Add a Friend</h2>
+
+<form action="/friend-requests" method="post">
+  <input
+          type="email"
+          name="receiverEmail"
+          placeholder="Enter user's email"
+          required
+  >
+
+  <button type="submit">Send Friend Request</button>
+</form>
+
+
+
+<h3>Friend Requests</h3>
+
+<div th:each="request : ${requests}">
+  <span th:text="${request.sender.username}"></span>
+
+  <form th:action="@{/friend-requests/{id}/accept(id=${request.id})}" method="post">
+    <button type="submit">Accept</button>
+  </form>
+
+</div>
+
+</body>
+
+</html>
