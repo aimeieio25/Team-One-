@@ -208,3 +208,49 @@
     margin-bottom: 0.5rem;
 }
 
+
+/* ==========================
+   Profile
+   ========================== */
+
+.profile {
+    width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f5f1e9;
+    border: 2px solid #30382f;
+    border-radius: 8px;
+}
+
+.profile h1 {
+    margin-top: 0;
+    color: #30382f;
+}
+
+.profile label {
+    display: block;
+    margin-top: 20px;
+    color: #30382f;
+    font-weight: bold;
+}
+
+.profile input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 6px;
+    padding: 10px;
+    border: 1px solid #30382f;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.profile button {
+    margin-top: 25px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #a8d65a;
+    color: #30382f;
+    font-weight: bold;
+    cursor: pointer;
+}
