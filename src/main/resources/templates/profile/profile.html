@@ -9,66 +9,50 @@
 
 <body>
 
-<div th:replace="~{header-footer/header :: header}"></div>
+    <div th:replace="~{header-footer/header :: header}"></div>
 
-<main class="profile">
+    <main class="profile">
 
-    <h1>User Information</h1>
+        <h1>User Information</h1>
 
-    <!-- Profile Picture -->
-    <div class="profile-picture-section">
+        <!-- Profile Picture -->
+        <div class="profile-picture-section">
 
-        <h2>Profile Picture</h2>
+            <h2>Profile Picture</h2>
 
-        <!-- Show current profile picture if one exists -->
-        <div th:if="${user.profilePicture != null}">
-            <img
-                    th:src="@{'/uploads/profile-pictures/' + ${user.profilePicture}}"
-                    alt="Profile Picture"
+            <!-- Show current profile picture if one exists -->
+            <div th:if="${user.profilePicture != null}">
+                <img th:src="@{'/uploads/profile-pictures/' + ${user.profilePicture}}" alt="Profile Picture"
                     class="profile-picture">
+            </div>
+
+            <!-- Upload profile picture -->
+            <form th:action="@{/profile/upload-picture}" method="post" enctype="multipart/form-data">
+
+                <input type="file" name="profilePicture" accept="image/png,image/jpeg,image/webp" required>
+
+                <button type="submit">Upload Picture</button>
+
+            </form>
+
         </div>
 
-        <!-- Upload profile picture -->
-        <form
-                th:action="@{/profile/upload-picture}"
-                method="post"
-                enctype="multipart/form-data">
+        <form th:action="@{/profile}" method="post">
 
-            <input
-                    type="file"
-                    name="profilePicture"
-                    accept="image/png,image/jpeg,image/webp"
-                    required>
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" th:value="${user.fullName}" required>
 
-            <button type="submit">Upload Picture</button>
+            <p>
+                Email:
+                <span th:text="${user.username}"></span>
+            </p>
+
+            <button type="submit">Save Changes</button>
 
         </form>
 
-    </div>
-
-    <form th:action="@{/profile}" method="post">
-
-        <label for="fullName">Full Name:</label>
-        <input
-                type="text"
-                id="fullName"
-                name="fullName"
-                th:value="${user.fullName}"
-                required>
-
-        <label for="email">Email:</label>
-        <input
-                type="email"
-                id="email"
-                name="email"
-                th:value="${user.username}"
-                required>
-
-        <button type="submit">Save Changes</button>
-
-    </form>
-
-</main>
+    </main>
 
 </body>
+
 </html>
