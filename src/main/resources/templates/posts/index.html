@@ -32,6 +32,11 @@
 
     <!--Added edit/delete options and nav for edit.html file-->
     <div th:each="post : ${posts}" class="post">
+
+        <p th:text="${post.user.username}">
+            Username
+        </p>
+
         <p th:text="${post.content}">
             Post content
         </p>
