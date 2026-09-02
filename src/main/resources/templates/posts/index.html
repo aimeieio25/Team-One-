@@ -1,56 +1,70 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>Posts</title>
-        <link rel="stylesheet" href="/main.css" />
-    </head>
-    <body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Posts</title>
+    <link rel="stylesheet" href="/main.css"/>
+</head>
+<body>
 
-    <div th:replace="~{header-footer/header :: header}"></div>
+<div th:replace="~{header-footer/header :: header}"></div>
 
-    <h1>Posts</h1>
+<h1>Posts</h1>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+<form action="#" th:action="@{/posts}" th:object="${post}" method="post">
 
-        <textarea id="content" th:field="*{content}" maxlength="250" required></textarea>
-        <span id="count">0</span>/250 characters
+    <textarea id="content"
+              th:field="*{content}"
+              maxlength="250"
+              required></textarea>
 
-        <script>
-            const textarea = document.getElementById("content");
-            const count = document.getElementById("count");
+    <!-- Validation error message -->
+    <p th:if="${#fields.hasErrors('content')}"
+       th:errors="*{content}"
+       class="error">
+    </p>
 
-            textarea.addEventListener("input", () => {
-                count.textContent = textarea.value.length;
-            });
-        </script>
+    <span id="count">0</span>/250 characters
 
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <script>
+        const textarea = document.getElementById("content");
+        const count = document.getElementById("count");
+
+        textarea.addEventListener("input", () => {
+            count.textContent = textarea.value.length;
+        });
+    </script>
+
+    <p>
+        <input type="submit" value="Submit"/>
+        <input type="reset" value="Reset"/>
+    </p>
+</form>
+
+
+<!-- Added edit/delete options and nav for edit.html file -->
+<div th:each="post : ${posts}" class="post">
+
+    <p th:text="${post.content}">
+        Post content
+    </p>
+
+    <a th:href="@{/posts/{id}/edit(id=${post.id})}">
+        Edit
+    </a>
+
+    <form th:action="@{/posts/{id}/delete(id=${post.id})}"
+          method="post"
+          style="display:inline">
+
+        <button type="submit">
+            Delete
+        </button>
+
     </form>
 
+</div>
 
-    <!--Added edit/delete options and nav for edit.html file-->
-    <div th:each="post : ${posts}" class="post">
-        <p th:text="${post.content}">
-            Post content
-        </p>
-
-        <a th:href="@{/posts/{id}/edit(id=${post.id})}">
-            Edit
-        </a>
-
-        <form th:action="@{/posts/{id}/delete(id=${post.id})}"
-              method="post"
-              style="display:inline">
-
-            <button type="submit">
-                Delete
-            </button>
-
-        </form>
-
-    </div>
-
-    </body>
+</body>
 </html>

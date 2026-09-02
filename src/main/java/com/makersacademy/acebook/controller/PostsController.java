@@ -12,6 +12,9 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
+
 
 import java.util.List;
 
@@ -33,10 +36,18 @@ public class PostsController {
     }
 
     @PostMapping("/posts")
-    public RedirectView create(
-            @ModelAttribute Post post,
-            Authentication authentication
+    public String create(
+            @Valid @ModelAttribute("post") Post post,
+            BindingResult bindingResult,
+            Authentication authentication,
+            Model model
     ) {
+        if (bindingResult.hasErrors()) {
+            Iterable<Post> posts = repository.findAllByOrderByIdDesc();
+            model.addAttribute("posts", posts);
+            return "posts/index";
+        }
+
         OAuth2User oauthUser = (OAuth2User) authentication.getPrincipal();
 
         String username = oauthUser.getAttribute("email");
@@ -48,8 +59,9 @@ public class PostsController {
 
         repository.save(post);
 
-        return new RedirectView("/posts");
+        return "redirect:/posts";
     }
+
     //Edit and Delete Post functionality
     @GetMapping("/posts/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {

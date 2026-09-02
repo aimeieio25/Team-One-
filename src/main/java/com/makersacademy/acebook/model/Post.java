@@ -2,6 +2,8 @@ package com.makersacademy.acebook.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Data
 @Entity
@@ -12,6 +14,8 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Sorry :/ The Post cannae be empty")
+    @Size(max = 250, message = "Sorry :/ Post must be 250 characters or less")
     private String content;
 
     @ManyToOne
