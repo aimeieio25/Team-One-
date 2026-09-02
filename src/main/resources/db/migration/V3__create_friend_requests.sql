@@ -12,9 +12,3 @@ CREATE TABLE friend_requests (
         FOREIGN KEY (receiver_id)
         REFERENCES users(id)
 );
-
-INSERT INTO users (username, full_name, enabled)
-VALUES
-    ('bwayne@example.com', 'Bruce Wayne', TRUE),
-    ('pquill@example.com', 'Peter Quill', TRUE),
-    ('sbob@example.com', 'SpongeBob SquarePants', TRUE);
