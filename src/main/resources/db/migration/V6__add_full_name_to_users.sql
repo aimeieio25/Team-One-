@@ -1,1 +1,2 @@
-ALTER TABLE users ADD COLUMN full_name varchar(255);
+ALTER TABLE users
+    ADD COLUMN full_name VARCHAR(255);
