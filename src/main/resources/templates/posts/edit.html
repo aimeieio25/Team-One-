@@ -1,8 +1,21 @@
-<!DOCTYPE html> <html xmlns:th="http://www.thymeleaf.org"> <head> <meta charset="UTF-8"> <title>Edit Post</title> <link rel="stylesheet" href="/main.css"> </head> <body> <h1>Edit Post</h1> <form th:action="@{/posts/{id}/edit(id=${post.id})}" th:object="${post}" method="post">
-  <textarea th:field="*{content}" required></textarea>
+<!DOCTYPE html> <html xmlns:th="http://www.thymeleaf.org">
+<head> <meta charset="UTF-8">
+  <title>Edit Post</title>
+  <link rel="stylesheet" href="/main.css" />
+</head>
+<body>
 
+<div th:replace="~{header-footer/header :: header}">
+</div>
+
+<h1>Edit Post</h1>
+
+<form th:action="@{/posts/{id}/edit(id=${post.id})}" th:object="${post}" method="post">
+  <textarea th:field="*{content}" required>
+  </textarea>
   <button type="submit">Save</button>
 
 </form>
 <a href="/posts">Cancel</a>
-</body> </html>
+</body>
+</html>
