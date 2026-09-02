@@ -27,6 +27,22 @@
                 <a th:href="@{/}">Home</a>
             </li>
 
+            <!-- ABOUT - anonymous users only -->
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a th:href="@{/about}">About</a>
+            </li>
+
+            <!-- FEATURES - anonymous users only -->
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a th:href="@{/features}">Features</a>
+            </li>
+
+            <!-- EXPLORE - anonymous users only -->
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a th:href="@{/explore}">Explore</a>
+            </li>
+
+
             <!-- Sign Up - anonymous: users only !-->
             <li class="nav-item" sec:authorize="isAnonymous()">
                 <a th:href="@{/oauth2/authorization/auth0}">Sign Up / Log In</a>
