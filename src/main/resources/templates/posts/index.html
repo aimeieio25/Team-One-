@@ -13,7 +13,19 @@
     <h1>Posts</h1>
 
     <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
-        <p>Content: <input type="text" th:field="*{content}" /></p>
+
+        <textarea id="content" th:field="*{content}" maxlength="250" required></textarea>
+        <span id="count">0</span>/250 characters
+
+        <script>
+            const textarea = document.getElementById("content");
+            const count = document.getElementById("count");
+
+            textarea.addEventListener("input", () => {
+                count.textContent = textarea.value.length;
+            });
+        </script>
+
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
