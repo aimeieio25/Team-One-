@@ -68,7 +68,8 @@ public class FriendRequestsController {
 
         model.addAttribute("requests", requests);
         model.addAttribute("friends", friends);
-
+        model.addAttribute("acceptedRequests", acceptedRequests);
+        model.addAttribute("currentUser", currentUser);
         return "posts/friends";
     }
 
@@ -110,6 +111,22 @@ public class FriendRequestsController {
         request.setStatus("accepted");
 
         friendRequestRepository.save(request);
+
+        return new RedirectView("/friends");
+    }
+
+    @PostMapping("/friend-requests/{id}/deny")
+    public RedirectView deny(@PathVariable Long id) {
+
+        friendRequestRepository.deleteById(id);
+
+        return new RedirectView("/friends");
+    }
+
+    @PostMapping("/friends/{id}/delete")
+    public RedirectView deleteFriend(@PathVariable Long id) {
+
+        friendRequestRepository.deleteById(id);
 
         return new RedirectView("/friends");
     }

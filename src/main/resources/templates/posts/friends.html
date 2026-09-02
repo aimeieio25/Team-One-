@@ -13,8 +13,20 @@
 
 <h1>Friends</h1>
 
-<div th:each="friend : ${friends}">
-  <p th:text="${friend.username}"></p>
+<div th:each="request : ${acceptedRequests}">
+
+  <span th:if="${request.sender.id == currentUser.id}"
+        th:text="${request.receiver.username}">
+  </span>
+
+  <span th:unless="${request.sender.id == currentUser.id}"
+        th:text="${request.sender.username}">
+  </span>
+
+  <form th:action="@{/friends/{id}/delete(id=${request.id})}" method="post">
+    <button type="submit">Remove Friend</button>
+  </form>
+
 </div>
 
 <h2>Add a Friend</h2>
@@ -39,6 +51,10 @@
 
   <form th:action="@{/friend-requests/{id}/accept(id=${request.id})}" method="post">
     <button type="submit">Accept</button>
+  </form>
+
+  <form th:action="@{/friend-requests/{id}/deny(id=${request.id})}" method="post">
+    <button type="submit">Deny</button>
   </form>
 
 </div>
