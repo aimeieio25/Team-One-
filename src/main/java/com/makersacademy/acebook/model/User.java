@@ -13,6 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    private String fullName;
     private boolean enabled;
 
     public User() {
@@ -21,6 +22,12 @@ public class User {
 
     public User(String username) {
         this.username = username;
+        this.enabled = TRUE;
+    }
+
+    public User(String username, String fullName) {
+        this.username = username;
+        this.fullName = fullName;
         this.enabled = TRUE;
     }
 

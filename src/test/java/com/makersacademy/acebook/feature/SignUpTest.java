@@ -1,4 +1,6 @@
+
 package com.makersacademy.acebook.feature;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.javafaker.Faker;
@@ -16,14 +18,15 @@ public class SignUpTest {
 
     @BeforeEach
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
         driver = new ChromeDriver();
         faker = new Faker();
     }
 
     @AfterEach
     public void tearDown() {
-        driver.close();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     @Test
@@ -35,7 +38,10 @@ public class SignUpTest {
         driver.findElement(By.name("email")).sendKeys(email);
         driver.findElement(By.name("password")).sendKeys("P@55qw0rd");
         driver.findElement(By.name("action")).click();
+
         String greetingText = driver.findElement(By.id("greeting")).getText();
+
         assertEquals("Signed in as " + email, greetingText);
     }
 }
+

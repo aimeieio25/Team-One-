@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+
+<body>
+
+<div th:replace="~{header-footer/header :: header}"></div>
+
+<main class="profile">
+
+    <h1>User Information</h1>
+
+    <form th:action="@{/profile}" method="post">
+
+        <label for="fullName">Full Name:</label>
+        <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                th:value="${user.fullName}"
+                required>
+
+        <label for="email">Email:</label>
+        <input
+                type="email"
+                id="email"
+                name="email"
+                th:value="${user.username}"
+                required>
+
+        <button type="submit">Save Changes</button>
+
+    </form>
+
+</main>
+
+</body>
+</html>
