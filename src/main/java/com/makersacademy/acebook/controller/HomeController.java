@@ -1,13 +1,13 @@
 package com.makersacademy.acebook.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 public class HomeController {
-	@RequestMapping(value = "/")
-	public RedirectView index() {
-		return new RedirectView("/posts");
+	@GetMapping("/")
+public String index() {
+		return "home/index";
 	}
 }
