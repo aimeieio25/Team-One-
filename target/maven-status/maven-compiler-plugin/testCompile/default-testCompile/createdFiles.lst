@@ -1,2 +1,3 @@
 com/makersacademy/acebook/feature/SignUpTest.class
 com/makersacademy/acebook/model/PostTest.class
+com/makersacademy/acebook/repository/PostRepositoryTest.class

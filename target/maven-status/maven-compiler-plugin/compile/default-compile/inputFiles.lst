@@ -2,6 +2,7 @@
 /Users/samuelbaggs/Projects/Team-One-/src/main/java/com/makersacademy/acebook/config/SecurityConfiguration.java
 /Users/samuelbaggs/Projects/Team-One-/src/main/java/com/makersacademy/acebook/controller/HomeController.java
 /Users/samuelbaggs/Projects/Team-One-/src/main/java/com/makersacademy/acebook/controller/PostsController.java
+/Users/samuelbaggs/Projects/Team-One-/src/main/java/com/makersacademy/acebook/controller/ProfileController.java
 /Users/samuelbaggs/Projects/Team-One-/src/main/java/com/makersacademy/acebook/controller/UsersController.java
 /Users/samuelbaggs/Projects/Team-One-/src/main/java/com/makersacademy/acebook/model/Post.java
 /Users/samuelbaggs/Projects/Team-One-/src/main/java/com/makersacademy/acebook/model/User.java
