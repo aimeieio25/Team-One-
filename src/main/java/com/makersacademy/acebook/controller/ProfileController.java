@@ -7,9 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -36,6 +34,19 @@ public class ProfileController {
                 model.addAttribute("user", user);
 
                 return "profile/profile";
+        }
+
+        @GetMapping("/profile/{id}")
+        public String viewUserProfile(
+                        @PathVariable Long id,
+                        Model model) {
+                User user = userRepository
+                                .findById(id)
+                                .orElseThrow();
+
+                model.addAttribute("user", user);
+
+                return "profile/user-profile";
         }
 
         @PostMapping("/profile")

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+
+<body>
+
+<div th:replace="~{header-footer/header :: header}"></div>
+
+<main class="profile">
+
+    <h1>User Profile</h1>
+
+    <div class="profile-picture-section">
+
+        <div th:if="${user.profilePicture != null}">
+            <img
+                    th:src="@{'/uploads/profile-pictures/' + ${user.profilePicture}}"
+                    alt="Profile Picture"
+                    class="profile-picture">
+        </div>
+
+    </div>
+
+    <h2 th:text="${user.fullName}"></h2>
+
+    <form th:action="@{/friends/add/{id}(id=${user.id})}" method="post">
+        <button type="submit">
+            Add Friend
+        </button>
+    </form>
+
+</main>
+
+</body>
+
+</html>
