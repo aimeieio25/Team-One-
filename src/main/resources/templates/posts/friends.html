@@ -11,6 +11,8 @@
 <div th:replace="~{header-footer/header :: header}">
 </div>
 
+<main class="friends">
+
 <h1>Friends</h1>
 
 <div th:each="friend : ${friends}">
@@ -42,6 +44,10 @@
   </form>
 
 </div>
+</main>
+
+<div th:replace="~{header-footer/footer :: footer}"></div>
+
 
 </body>
 
