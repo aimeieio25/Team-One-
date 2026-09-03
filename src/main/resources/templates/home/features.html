@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -12,14 +13,85 @@
 <div th:replace="~{header-footer/header :: header}">
 </div>
 
+<main class="features-page">
 
-<main>
-    <h1> Acebook Features</h1>
-    <p>Connect with your friends and share what's happening.</p>
+
+    <section class="features-hero">
+        <h1>Acebook Features</h1>
+        <p>
+            Everything you need to stay connected, share moments
+            and keep up with your friends.
+        </p>
+    </section>
+
+    <section class="features-section">
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <h2>Share Posts</h2>
+                <p>
+                    Share your thoughts, updates and everyday moments
+                    with the people you're connected with.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h2>Connect with Friends</h2>
+                <p>
+                    Find your friends and build your own network of
+                    people you want to stay connected with.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h2>Friend Requests</h2>
+                <p>
+                    Send and receive friend requests so you can choose
+                    who you want to connect with.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h2>Like & Interact</h2>
+                <p>
+                    Show your friends some appreciation by interacting
+                    with their posts and updates.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h2>Your Profile</h2>
+                <p>
+                    Create your own profile and let your friends know
+                    a little more about you.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h2>Search</h2>
+                <p>
+                    Quickly find friends and discover people across
+                    the Acebook community.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="features-bottom">
+        <h2>Stay connected with Acebook</h2>
+        <p>
+            Whether you're catching up with friends or sharing what's
+            happening in your life, Acebook keeps everyone connected.
+        </p>
+    </section>
+
+
 </main>
 
 <div th:replace="~{header-footer/footer :: footer}"></div>
-
 
 </body>
 </html>

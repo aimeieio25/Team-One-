@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -12,15 +13,134 @@
 <div th:replace="~{header-footer/header :: header}">
 </div>
 
+<main class="explore-page">
 
-<main>
-    <h1>Explore</h1>
-    <p>See what's happening on Acebook before you sign up. Browse public
-        posts, discover trending topics and find popular creators.</p>
+
+    <section class="explore-hero">
+        <h1>Explore Acebook</h1>
+        <p>
+            See what's happening across Acebook. Discover trending topics,
+            popular posts and people in the community.
+        </p>
+    </section>
+
+
+    <section class="explore-section">
+
+        <h2>Trending Now</h2>
+
+        <div class="trending-grid">
+
+            <div class="trend-card">
+                <span class="trend-number">01</span>
+                <h3>Weekend Plans</h3>
+                <p>People are sharing what they're getting up to this weekend.</p>
+            </div>
+
+            <div class="trend-card">
+                <span class="trend-number">02</span>
+                <h3>Summer</h3>
+                <p>Photos, memories and updates from the summer are trending.</p>
+            </div>
+
+            <div class="trend-card">
+                <span class="trend-number">03</span>
+                <h3>Music</h3>
+                <p>See what everyone is listening to and talking about.</p>
+            </div>
+
+            <div class="trend-card">
+                <span class="trend-number">04</span>
+                <h3>Food & Recipes</h3>
+                <p>Discover the latest food recommendations and recipes.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="explore-section explore-posts">
+
+        <h2>Popular Posts</h2>
+
+        <div class="explore-post">
+
+            <div class="explore-post-header">
+                <strong>Alex</strong>
+                <span>2 hours ago</span>
+            </div>
+
+            <p>
+                Finally got around to exploring somewhere new this weekend.
+                Highly recommend it!
+            </p>
+
+            <div class="post-stats">
+                <span>♡ 24 likes</span>
+                <span>8 comments</span>
+            </div>
+
+        </div>
+
+
+        <div class="explore-post">
+
+            <div class="explore-post-header">
+                <strong>Sam</strong>
+                <span>4 hours ago</span>
+            </div>
+
+            <p>
+                What's everyone watching at the moment? Looking for something
+                new to start tonight.
+            </p>
+
+            <div class="post-stats">
+                <span>♡ 18 likes</span>
+                <span>12 comments</span>
+            </div>
+
+        </div>
+
+
+        <div class="explore-post">
+
+            <div class="explore-post-header">
+                <strong>Jamie</strong>
+                <span>6 hours ago</span>
+            </div>
+
+            <p>
+                The weather has finally improved! Hope everyone is having
+                a good day.
+            </p>
+
+            <div class="post-stats">
+                <span>♡ 31 likes</span>
+                <span>5 comments</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="explore-bottom">
+
+        <h2>Join the conversation</h2>
+
+        <p>
+            Sign up to Acebook to share your own posts, connect with friends
+            and join the conversation.
+        </p>
+
+    </section>
+
+
 </main>
 
 <div th:replace="~{header-footer/footer :: footer}"></div>
-
 
 </body>
 </html>

@@ -270,10 +270,1310 @@
     }
 }
 
-
-/* ==========================
-   POSTS
+    /* ==========================
+   ABOUT PAGE
    ========================== */
+
+    .about-page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 60px 55px;
+        box-sizing: border-box;
+        color: #30382f;
+    }
+
+
+    /* ==========================
+       ABOUT HERO
+       ========================== */
+
+    .about-hero {
+        text-align: center;
+        padding: 50px 20px 55px;
+        border-bottom: 1px solid #ded9cd;
+    }
+
+    .about-hero h1 {
+        margin: 0 0 18px;
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 42px;
+        font-weight: normal;
+
+        letter-spacing: 2px;
+    }
+
+    .about-hero p {
+        max-width: 650px;
+        margin: 0 auto;
+
+        color: #666;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 18px;
+        line-height: 1.7;
+    }
+
+
+    /* ==========================
+       ABOUT SECTIONS
+       ========================== */
+
+    .about-section {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 45px 20px;
+        text-align: center;
+    }
+
+    .about-section h2,
+    .about-features h2 {
+        margin: 0 0 20px;
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 26px;
+        font-weight: normal;
+
+        letter-spacing: 1px;
+    }
+
+    .about-section p {
+        margin: 12px 0;
+
+        color: #666;
+
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+
+    /* ==========================
+       FEATURES
+       ========================== */
+
+    .about-features {
+        padding: 45px 20px;
+
+        background-color: #f4f1e9;
+
+        border-top: 1px solid #ded9cd;
+        border-bottom: 1px solid #ded9cd;
+    }
+
+    .about-features h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .feature-grid {
+        max-width: 900px;
+        margin: 0 auto;
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 20px;
+    }
+
+    .feature-card {
+        padding: 25px;
+
+        background-color: #faf9f5;
+
+        border: 1px solid #ded9cd;
+        border-radius: 8px;
+
+        text-align: center;
+    }
+
+    .feature-card h3 {
+        margin: 0 0 12px;
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 18px;
+        font-weight: normal;
+
+        letter-spacing: 1px;
+    }
+
+    .feature-card p {
+        margin: 0;
+
+        color: #666;
+
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+
+    /* ==========================
+       TEAM SECTION
+       ========================== */
+
+    .about-team {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 45px 20px;
+
+        text-align: center;
+    }
+
+    .about-team h2 {
+        margin-bottom: 20px;
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 26px;
+        font-weight: normal;
+
+        letter-spacing: 1px;
+    }
+
+    .about-team p {
+        color: #666;
+
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+
+    /* ==========================
+       CALL TO ACTION
+       ========================== */
+
+    .about-cta {
+        margin-top: 20px;
+        padding: 45px 20px;
+
+        text-align: center;
+
+        border-top: 1px solid #ded9cd;
+    }
+
+    .about-cta h2 {
+        margin: 0 0 12px;
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 25px;
+        font-weight: normal;
+
+        letter-spacing: 1px;
+    }
+
+    .about-cta p {
+        margin-bottom: 25px;
+
+        color: #666;
+
+        font-size: 15px;
+    }
+
+
+    /* ==========================
+       ABOUT BUTTON
+       ========================== */
+
+    .about-button {
+        display: inline-block;
+
+        padding: 11px 24px;
+
+        background-color: #a8d65a;
+
+        color: #30382f;
+
+        text-decoration: none;
+
+        border: 1px solid #8fb84c;
+        border-radius: 4px;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 14px;
+
+        letter-spacing: 1px;
+
+        transition: background-color 0.3s ease;
+    }
+
+    .about-button:hover {
+        background-color: #94c44b;
+    }
+
+
+    /* ==========================
+       RESPONSIVE ABOUT PAGE
+       ========================== */
+
+    @media (max-width: 768px) {
+
+        .about-page {
+            padding: 40px 25px;
+        }
+
+        .about-hero h1 {
+            font-size: 34px;
+        }
+
+        .about-hero p {
+            font-size: 16px;
+        }
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .about-section,
+        .about-team {
+            padding: 35px 10px;
+        }
+    }
+
+    /* ==========================
+FEATURES PAGE
+========================== */
+
+    .features-page {
+        flex: 1;
+        color: #30382f;
+    }
+
+    /* ==========================
+    FEATURES HERO
+    ========================== */
+
+    .features-hero {
+        text-align: center;
+
+
+        padding: 55px 20px 50px;
+
+        border-bottom: 1px solid #ded9cd;
+
+
+    }
+
+    .features-hero h1 {
+        margin: 0 0 18px;
+
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 40px;
+        font-weight: normal;
+
+        letter-spacing: 2px;
+
+
+    }
+
+    .features-hero p {
+        max-width: 650px;
+
+
+        margin: 0 auto;
+
+        color: #666;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 17px;
+        line-height: 1.7;
+
+
+    }
+
+    /* ==========================
+    FEATURES SECTION
+    ========================== */
+
+    .features-section {
+        padding: 55px 55px;
+
+
+        background-color: #faf9f5;
+
+
+    }
+
+    .feature-grid {
+        max-width: 1000px;
+
+
+        margin: 0 auto;
+
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 25px;
+
+
+    }
+
+    /* ==========================
+    FEATURE CARDS
+    ========================== */
+
+    .feature-card {
+        padding: 30px;
+
+
+        background-color: #f4f1e9;
+
+        border: 1px solid #ded9cd;
+
+        border-radius: 8px;
+
+        text-align: center;
+
+        transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+
+    }
+
+    .feature-card:hover {
+        transform: translateY(-3px);
+
+
+        box-shadow: 0 4px 12px rgba(48, 56, 47, 0.10);
+
+
+    }
+
+    .feature-card h2 {
+        margin: 0 0 15px;
+
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 21px;
+        font-weight: normal;
+
+        letter-spacing: 1px;
+
+
+    }
+
+    .feature-card p {
+        margin: 0;
+
+
+        color: #666;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+
+
+    }
+
+    /* ==========================
+    BOTTOM SECTION
+    ========================== */
+
+    .features-bottom {
+        max-width: 750px;
+
+
+        margin: 0 auto;
+
+        padding: 50px 25px;
+
+        text-align: center;
+
+
+    }
+
+    .features-bottom h2 {
+        margin: 0 0 15px;
+
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 26px;
+        font-weight: normal;
+
+        letter-spacing: 1px;
+
+
+    }
+
+    .features-bottom p {
+        margin: 0;
+
+
+        color: #666;
+
+        font-size: 15px;
+
+        line-height: 1.8;
+
+
+    }
+
+    /* ==========================
+    RESPONSIVE
+    ========================== */
+
+    @media (max-width: 768px) {
+
+
+        .features-hero {
+        padding: 40px 25px;
+    }
+
+        .features-hero h1 {
+            font-size: 34px;
+        }
+
+        .features-section {
+            padding: 40px 25px;
+        }
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .feature-card {
+            padding: 25px;
+        }
+
+
+    }
+
+    /* ==========================
+EXPLORE PAGE
+========================== */
+
+    .explore-page {
+        flex: 1;
+        color: #30382f;
+    }
+
+    /* ==========================
+    EXPLORE HERO
+    ========================== */
+
+    .explore-hero {
+        text-align: center;
+
+
+        padding: 55px 20px 50px;
+
+        border-bottom: 1px solid #ded9cd;
+
+    }
+
+    .explore-hero h1 {
+        margin: 0 0 18px;
+
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 40px;
+        font-weight: normal;
+
+        letter-spacing: 2px;
+
+
+    }
+
+    .explore-hero p {
+        max-width: 700px;
+
+
+        margin: 0 auto;
+
+        color: #666;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 17px;
+
+        line-height: 1.7;
+
+
+    }
+
+    /* ==========================
+    EXPLORE SECTIONS
+    ========================== */
+
+    .explore-section {
+        max-width: 1000px;
+
+
+        margin: 0 auto;
+
+        padding: 50px 30px;
+
+
+    }
+
+    .explore-section h2 {
+        margin: 0 0 30px;
+
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 27px;
+        font-weight: normal;
+
+        letter-spacing: 1px;
+
+        text-align: center;
+
+
+    }
+
+    /* ==========================
+    TRENDING
+    ========================== */
+
+    .trending-grid {
+        display: grid;
+
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 20px;
+
+    }
+
+    .trend-card {
+        position: relative;
+
+
+        padding: 28px;
+
+        background-color: #f4f1e9;
+
+        border: 1px solid #ded9cd;
+
+        border-radius: 8px;
+
+
+    }
+
+    .trend-number {
+        display: block;
+
+
+        margin-bottom: 12px;
+
+        color: #a8b39f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 13px;
+
+        letter-spacing: 2px;
+
+
+    }
+
+    .trend-card h3 {
+        margin: 0 0 10px;
+
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 20px;
+        font-weight: normal;
+
+
+    }
+
+    .trend-card p {
+        margin: 0;
+
+
+        color: #666;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+
+
+    }
+
+    /* ==========================
+    POPULAR POSTS
+    ========================== */
+
+    .explore-posts {
+        max-width: 850px;
+
+        padding-top: 20px;
+
+    }
+
+    .explore-post {
+        margin-bottom: 20px;
+
+
+        padding: 25px;
+
+        background-color: #f4f1e9;
+
+        border: 1px solid #ded9cd;
+
+        border-radius: 8px;
+
+
+    }
+
+    .explore-post-header {
+        display: flex;
+
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-bottom: 15px;
+
+
+    }
+
+    .explore-post-header strong {
+        color: #30382f;
+
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 16px;
+
+
+    }
+
+    .explore-post-header span {
+        color: #888;
+
+
+        font-size: 12px;
+
+
+    }
+
+    .explore-post > p {
+        margin: 0 0 20px;
+
+
+        color: #555;
+
+        font-size: 15px;
+
+        line-height: 1.7;
+
+
+    }
+
+    .post-stats {
+        display: flex;
+
+
+        gap: 25px;
+
+        padding-top: 15px;
+
+        border-top: 1px solid #ded9cd;
+
+        color: #888;
+
+        font-size: 13px;
+
+
+    }
+
+    /* ==========================
+    BOTTOM SECTION
+    ========================== */
+
+    .explore-bottom {
+        padding: 50px 25px;
+
+
+        text-align: center;
+
+        background-color: #f4f1e9;
+
+        border-top: 1px solid #ded9cd;
+
+
+    }
+
+    .explore-bottom h2 {
+        margin: 0 0 15px;
+
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 26px;
+        font-weight: normal;
+
+        letter-spacing: 1px;
+
+
+    }
+
+    .explore-bottom p {
+        max-width: 600px;
+
+
+        margin: 0 auto;
+
+        color: #666;
+
+        font-size: 15px;
+
+        line-height: 1.8;
+
+
+    }
+
+    /* ==========================
+    RESPONSIVE
+    ========================== */
+
+    @media (max-width: 768px) {
+
+
+        .explore-hero {
+        padding: 40px 25px;
+    }
+
+        .explore-hero h1 {
+            font-size: 34px;
+        }
+
+        .explore-section {
+            padding: 40px 25px;
+        }
+
+        .trending-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .explore-post-header {
+            align-items: flex-start;
+
+            flex-direction: column;
+
+            gap: 5px;
+        }
+
+
+    }
+
+    /* ==========================
+HOME PAGE
+========================== */
+
+    .home-page {
+        flex: 1;
+        color: #30382f;
+    }
+
+    /* ==========================
+    HERO
+    ========================== */
+
+    .home-hero {
+        min-height: 540px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        box-sizing: border-box;
+
+        padding: 80px 30px;
+
+        text-align: center;
+
+        background-color: #f4f1e9;
+
+        border-bottom: 1px solid #ded9cd;
+
+        position: relative;
+
+    }
+
+    /* Subtle decorative circles */
+
+    .home-hero::before,
+    .home-hero::after {
+        content: "";
+
+        position: absolute;
+
+        border: 1px solid #ded9cd;
+
+        border-radius: 50%;
+
+        pointer-events: none;
+
+    }
+
+    .home-hero::before {
+        width: 300px;
+        height: 300px;
+
+        top: -150px;
+        left: -100px;
+
+    }
+
+    .home-hero::after {
+        width: 400px;
+        height: 400px;
+
+        bottom: -220px;
+        right: -150px;
+
+    }
+
+    .hero-content {
+        max-width: 800px;
+
+        position: relative;
+        z-index: 1;
+
+    }
+
+    .hero-eyebrow {
+        margin: 0 0 20px;
+
+        color: #7b6650;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 13px;
+
+        letter-spacing: 3px;
+
+    }
+
+    .hero-content h1 {
+        margin: 0;
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 64px;
+
+        font-weight: normal;
+
+        line-height: 1.1;
+
+        letter-spacing: 2px;
+
+    }
+
+    .hero-text {
+        max-width: 620px;
+
+        margin: 30px auto 0;
+
+        color: #666;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 18px;
+
+        line-height: 1.8;
+
+    }
+
+    /* ==========================
+    HERO BUTTONS
+    ========================== */
+
+    .hero-actions {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 15px;
+
+        margin-top: 35px;
+
+    }
+
+    .home-button {
+        display: inline-block;
+
+        padding: 13px 28px;
+
+        border-radius: 4px;
+
+        text-decoration: none;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 14px;
+
+        letter-spacing: 1px;
+
+        transition:
+                background-color 0.3s ease,
+                color 0.3s ease,
+                transform 0.2s ease;
+
+    }
+
+    .home-button {
+        transform: translateY(-2px);
+    }
+
+    .primary-button {
+        background-color: #a8d65a;
+
+        color: #30382f;
+
+        border: 1px solid #8fb84c;
+
+    }
+
+    .primary-button {
+        background-color: #94c44b;
+    }
+
+    .secondary-button {
+        background-color: transparent;
+
+        color: #30382f;
+
+        border: 1px solid #30382f;
+
+    }
+
+    .secondary-button {
+        background-color: #30382f;
+
+        color: #f4f1e9;
+
+    }
+
+    /* ==========================
+    INTRODUCTION
+    ========================== */
+
+    .home-intro {
+        max-width: 750px;
+
+        margin: 0 auto;
+
+        padding: 75px 30px 60px;
+
+        text-align: center;
+
+    }
+
+    .section-eyebrow {
+        margin: 0 0 15px;
+
+        color: #7b6650;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 12px;
+
+        letter-spacing: 2.5px;
+
+    }
+
+    .home-intro h2 {
+        margin: 0 0 20px;
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 34px;
+
+        font-weight: normal;
+
+        letter-spacing: 1px;
+
+    }
+
+    .home-intro > p {
+        margin: 0;
+
+        color: #666;
+
+        font-size: 15px;
+
+        line-height: 1.9;
+
+    }
+
+    /* ==========================
+    HOME FEATURES
+    ========================== */
+
+    .home-features {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        max-width: 1000px;
+
+        margin: 0 auto;
+
+        padding: 20px 30px 75px;
+
+        gap: 25px;
+
+    }
+
+    .home-feature {
+        padding: 35px 30px;
+
+        text-align: center;
+
+        background-color: #f4f1e9;
+
+        border: 1px solid #ded9cd;
+
+        border-radius: 8px;
+
+        transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+    }
+
+    .home-feature {
+        transform: translateY(-4px);
+
+        box-shadow: 0 5px 15px rgba(48, 56, 47, 0.10);
+
+    }
+
+    .feature-icon {
+        display: block;
+
+        margin-bottom: 18px;
+
+        color: #a8b39f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 13px;
+
+        letter-spacing: 2px;
+
+    }
+
+    .home-feature h3 {
+        margin: 0 0 12px;
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 22px;
+
+        font-weight: normal;
+
+        letter-spacing: 1px;
+
+    }
+
+    .home-feature p {
+        margin: 0;
+
+        color: #666;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+
+    }
+
+    /* ==========================
+    STATEMENT
+    ========================== */
+
+    .home-statement {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 25px;
+
+        padding: 60px 25px;
+
+        background-color: #f4f1e9;
+
+        border-top: 1px solid #ded9cd;
+
+        border-bottom: 1px solid #ded9cd;
+
+    }
+
+    .home-statement blockquote {
+        max-width: 600px;
+
+        margin: 0;
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 25px;
+
+        font-style: italic;
+
+        line-height: 1.5;
+
+        text-align: center;
+
+    }
+
+    .statement-line {
+        width: 60px;
+
+        height: 1px;
+
+        background-color: #ded9cd;
+
+    }
+
+    /* ==========================
+    FINAL CTA
+    ========================== */
+
+    .home-cta {
+        padding: 70px 25px;
+
+        text-align: center;
+
+    }
+
+    .home-cta h2 {
+        margin: 0 0 15px;
+
+        color: #30382f;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        font-size: 30px;
+
+        font-weight: normal;
+
+        letter-spacing: 1px;
+
+    }
+
+    .home-cta p {
+        margin: 0 0 28px;
+
+        color: #666;
+
+        font-size: 15px;
+
+        line-height: 1.7;
+
+    }
+
+    /* ==========================
+    RESPONSIVE
+    ========================== */
+
+    @media (max-width: 768px) {
+
+        .home-hero {
+            min-height: 500px;
+
+            padding: 60px 25px;
+        }
+
+        .hero-content h1 {
+            font-size: 45px;
+        }
+
+        .hero-text {
+            font-size: 16px;
+        }
+
+        .hero-actions {
+            flex-direction: column;
+
+            align-items: center;
+        }
+
+        .home-button {
+            width: 180px;
+
+            box-sizing: border-box;
+        }
+
+        .home-features {
+            grid-template-columns: 1fr;
+
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+
+        .home-statement {
+            gap: 10px;
+        }
+
+        .statement-line {
+            width: 30px;
+        }
+
+        .home-statement blockquote {
+            font-size: 20px;
+        }
+
+    }
+
+
+
+
+    /* ==========================
+       POSTS
+       ========================== */
 
 .posts-main {
     border-collapse: collapse;

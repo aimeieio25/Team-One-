@@ -12,18 +12,109 @@
 <div th:replace="~{header-footer/header :: header}">
 </div>
 
+<main class="about-page">
 
-<main>
-    <h1>About Acebook</h1>
-    <p>
-    Acebook is a social platform designed to bring people together,
-    share moments and stay connected. Find out more about our mission,
-    our story and the team behind Acebook.
-</p>
+
+    <section class="about-hero">
+        <h1>About Acebook</h1>
+        <p>
+            A simple place to connect, share and keep up with the people
+            who matter to you.
+        </p>
+    </section>
+
+    <section class="about-section">
+        <h2>What is Acebook?</h2>
+        <p>
+            Acebook is a social platform designed to bring people together.
+            Whether you're sharing an update, keeping up with friends or
+            discovering what others are getting up to, Acebook gives you
+            a simple way to stay connected.
+        </p>
+        <p>
+            We believe social media should be easy to use, enjoyable and
+            focused on connecting people. That's why we've kept Acebook
+            straightforward, with the features you need without unnecessary
+            complexity.
+        </p>
+    </section>
+
+    <section class="about-section">
+        <h2>Our Mission</h2>
+        <p>
+            Our mission is to make staying connected simple. Acebook is
+            built around the idea that sharing everyday moments can help
+            people stay close, even when they're miles apart.
+        </p>
+    </section>
+
+    <section class="about-features">
+        <h2>What can you do on Acebook?</h2>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <h3>Share Posts</h3>
+                <p>
+                    Share your thoughts, updates and moments with your
+                    friends and followers.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Connect with Friends</h3>
+                <p>
+                    Find friends and build your own network of people
+                    you want to stay connected with.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Discover</h3>
+                <p>
+                    Keep up with what's happening and discover new posts
+                    from people in your network.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Stay Connected</h3>
+                <p>
+                    Keep all your connections in one place and stay up to
+                    date with the people who matter to you.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="about-section">
+        <h2>Built by our team</h2>
+        <p>
+            Acebook was created as a team project, bringing together
+            developers with a shared goal of building a social platform
+            from the ground up.
+        </p>
+        <p>
+            From designing the interface to building the backend and
+            database, every part of Acebook has been developed with
+            collaboration, learning and good software practices in mind.
+        </p>
+    </section>
+
+    <section class="about-cta">
+        <h2>Ready to get connected?</h2>
+        <p>
+            Join Acebook and start connecting with friends today.
+        </p>
+        <a th:href="@{/}" class="about-button">Get Started</a>
+    </section>
+
+
 </main>
 
-<div th:replace="~{header-footer/footer :: footer}"></div>
-
+<div th:replace="~{header-footer/footer :: footer}">
+</div>
 
 </body>
 </html>
