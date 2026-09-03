@@ -1,0 +1,60 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --switch-track: #dfe4ea;
+    --switch-thumb: #ffffff;
+    --border-color: #e0e0e0;
+}
+
+html[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #e8e8e8;
+    --switch-track: #3a3f47;
+    --switch-thumb: #1e1e1e;
+    --border-color: #333333;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.theme-switch {
+    position: relative;
+    width: 54px;
+    height: 28px;
+    padding: 3px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: var(--switch-track);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+.theme-switch svg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+}
+
+.theme-switch .sun { left: 6px; color: #f5a623; }
+.theme-switch .moon { right: 6px; color: #cfd8e3; }
+
+.theme-switch .thumb {
+    position: relative;
+    z-index: 1;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--switch-thumb);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    transition: transform 0.25s ease;
+}
+
+html[data-theme="dark"] .theme-switch .thumb {
+    transform: translateX(26px);
+}
