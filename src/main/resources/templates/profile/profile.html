@@ -15,6 +15,37 @@
 
     <h1>User Information</h1>
 
+    <!-- Profile Picture -->
+    <div class="profile-picture-section">
+
+        <h2>Profile Picture</h2>
+
+        <!-- Show current profile picture if one exists -->
+        <div th:if="${user.profilePicture != null}">
+            <img
+                    th:src="@{'/uploads/profile-pictures/' + ${user.profilePicture}}"
+                    alt="Profile Picture"
+                    class="profile-picture">
+        </div>
+
+        <!-- Upload profile picture -->
+        <form
+                th:action="@{/profile/upload-picture}"
+                method="post"
+                enctype="multipart/form-data">
+
+            <input
+                    type="file"
+                    name="profilePicture"
+                    accept="image/png,image/jpeg,image/webp"
+                    required>
+
+            <button type="submit">Upload Picture</button>
+
+        </form>
+
+    </div>
+
     <form th:action="@{/profile}" method="post">
 
         <label for="fullName">Full Name:</label>

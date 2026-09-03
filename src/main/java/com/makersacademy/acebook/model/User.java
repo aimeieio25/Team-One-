@@ -15,6 +15,7 @@ public class User {
     private String username;
     private String fullName;
     private boolean enabled;
+    private String profilePicture;
 
     public User() {
         this.enabled = TRUE;
