@@ -8,6 +8,8 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Locale;
+
 @RestController
 public class UsersController {
     @Autowired
@@ -26,7 +28,13 @@ public class UsersController {
 
         User user = userRepository
                 .findUserByUsername(username)
-                .orElse(new User(username, fullName));
+                .orElseGet(() -> {
+                    User newUser = new User(username, fullName);
+                    String handle = username.split("@")[0].toLowerCase();
+                    newUser.setHandle(handle);
+                    return newUser;
+                });
+
 
         userRepository.save(user);
 

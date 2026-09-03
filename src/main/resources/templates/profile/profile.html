@@ -37,10 +37,29 @@
 
         </div>
 
+        <p th:if="${param.handleTaken}">
+            That handle is already taken.
+        </p>
+
+        <p th:if="${param.updated}">
+            Profile updated successfully!
+        </p>
+
         <form th:action="@{/profile}" method="post">
 
             <label for="fullName">Full Name:</label>
-            <input type="text" id="fullName" name="fullName" th:value="${user.fullName}" required>
+            <input type="text"
+                   id="fullName"
+                   name="fullName"
+                   th:value="${user.fullName}"
+                   required>
+
+            <label for="handle">Handle:</label>
+            <input type="text"
+                   id="handle"
+                   name="handle"
+                   th:value="${user.handle}"
+                   required>
 
             <p>
                 Email:

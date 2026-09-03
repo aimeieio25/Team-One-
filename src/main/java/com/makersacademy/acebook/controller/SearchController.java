@@ -32,7 +32,8 @@ public class SearchController {
 
         if (!query.isBlank()) {
             users = userRepository
-                    .findByUsernameContainingIgnoreCaseOrFullNameContainingIgnoreCase(
+                    .findByUsernameContainingIgnoreCaseOrFullNameContainingIgnoreCaseOrHandleContainingIgnoreCase(
+                            query,
                             query,
                             query
                     );
