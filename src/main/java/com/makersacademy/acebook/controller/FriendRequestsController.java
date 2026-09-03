@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -41,9 +42,34 @@ public class FriendRequestsController {
     }
 
     @GetMapping("/friends")
-    public String friends(Model model) {
+    public String friends(
+            @RequestParam(required = false, defaultValue = "") String query,
+            Model model
+    ) {
 
         User currentUser = getCurrentUser();
+
+        List<User> searchResults = Collections.emptyList();
+
+        if (!query.isBlank()) {
+            searchResults =
+                    userRepository.findByUsernameContainingIgnoreCaseOrFullNameContainingIgnoreCase(
+                            query,
+                            query
+                    );
+            searchResults.removeIf(user ->
+                    user.getId().equals(currentUser.getId())
+            );
+
+            searchResults.removeIf(user ->
+                    friendRequestRepository.existsBySenderAndReceiverOrSenderAndReceiver(
+                            currentUser,
+                            user,
+                            user,
+                            currentUser
+                    )
+            );
+        }
 
         List<FriendRequest> requests =
                 friendRequestRepository.findByReceiverAndStatus(currentUser, "pending");
@@ -70,6 +96,8 @@ public class FriendRequestsController {
         model.addAttribute("friends", friends);
         model.addAttribute("acceptedRequests", acceptedRequests);
         model.addAttribute("currentUser", currentUser);
+        model.addAttribute("query", query);
+        model.addAttribute("searchResults", searchResults);
         return "posts/friends";
     }
 
@@ -98,7 +126,7 @@ public class FriendRequestsController {
 
         friendRequestRepository.save(request);
 
-        return new RedirectView("/friends");
+        return new RedirectView("/friends?sent=true");
     }
 
     @PostMapping("/friend-requests/{id}/accept")
