@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-
-
 <header class="header" th:fragment="header">
+
+    <link rel="stylesheet" th:href="@{/theme-toggle.css}">
 
     <div class="logo">
         <a th:href="@{/}">
@@ -12,51 +12,41 @@
     </div>
 
     <nav class="navigation">
-
         <ul class="nav-list">
 
-            <!-- Greeting - logged-in users only !-->
             <li class="nav-item greeting" sec:authorize="isAuthenticated()">
                 Hi, <span th:text="${#authentication.principal.fullName}">User</span>
             </li>
 
-            <!-- HOME - Everyone can see -->
             <li class="nav-item">
                 <a th:href="@{/}">Home</a>
             </li>
 
-            <!-- ABOUT - anonymous users only -->
             <li class="nav-item" sec:authorize="isAnonymous()">
                 <a th:href="@{/about}">About</a>
             </li>
 
-            <!-- FEATURES - anonymous users only -->
             <li class="nav-item" sec:authorize="isAnonymous()">
                 <a th:href="@{/features}">Features</a>
             </li>
 
-            <!-- EXPLORE - anonymous users only -->
             <li class="nav-item" sec:authorize="isAnonymous()">
                 <a th:href="@{/explore}">Explore</a>
             </li>
 
-
-            <!-- Sign Up - anonymous: users only !-->
             <li class="nav-item" sec:authorize="isAnonymous()">
                 <a th:href="@{/oauth2/authorization/auth0}">Sign Up / Log In</a>
             </li>
 
-            <!-- Profile - logged-in users only !-->
+
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a th:href="@{/profile}">Profile</a>
             </li>
 
-            <!-- Posts - logged-in users only !-->
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a th:href="@{/posts}">Posts</a>
             </li>
 
-            <!-- Posts - logged-in users only !-->
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a th:href="@{/friends}">Friends</a>
             </li>
@@ -65,19 +55,22 @@
                 <a th:href="@{/search}">Search</a>
             </li>
 
-            <!-- Logout - logged-in users only -->
+
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="logout-button">Log Out</button>
                 </form>
             </li>
 
-
-
-
+            <li class="nav-item">
+                <span id="theme-toggle-container"></span>
+            </li>
 
         </ul>
     </nav>
+
+    <script th:src="@{/js/theme-toggle.js}"></script>
+
 </header>
 
 </html>
