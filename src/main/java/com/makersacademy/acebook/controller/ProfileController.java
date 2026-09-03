@@ -50,7 +50,8 @@ public class ProfileController {
         }
 
         @PostMapping("/profile")
-        public String updateProfile(@RequestParam String fullName) {
+        public String updateProfile(@RequestParam String fullName,
+                                    @RequestParam String handle) {
 
                 DefaultOidcUser principal = (DefaultOidcUser) SecurityContextHolder
                                 .getContext()
@@ -63,11 +64,22 @@ public class ProfileController {
                                 .findUserByUsername(currentEmail)
                                 .orElseThrow();
 
+                handle = handle.toLowerCase();
+
+                User existingHandle = userRepository
+                        .findUserByHandle(handle)
+                        .orElse(null);
+
+                if (existingHandle != null && !existingHandle.getId().equals(user.getId())) {
+                        return "redirect:/profile?handleTaken=true";
+                }
+
                 user.setFullName(fullName);
+                user.setHandle(handle);
 
                 userRepository.save(user);
 
-                return "redirect:/profile";
+                return "redirect:/profile?updated=true";
         }
 
         @PostMapping("profile/upload-picture")

@@ -53,7 +53,8 @@ public class FriendRequestsController {
 
         if (!query.isBlank()) {
             searchResults =
-                    userRepository.findByUsernameContainingIgnoreCaseOrFullNameContainingIgnoreCase(
+                    userRepository.findByUsernameContainingIgnoreCaseOrFullNameContainingIgnoreCaseOrHandleContainingIgnoreCase(
+                            query,
                             query,
                             query
                     );
@@ -143,13 +144,7 @@ public class FriendRequestsController {
         return new RedirectView("/friends");
     }
 
-    @PostMapping("/friend-requests/{id}/deny")
-    public RedirectView deny(@PathVariable Long id) {
 
-        friendRequestRepository.deleteById(id);
-
-        return new RedirectView("/friends");
-    }
 
     @PostMapping("/friends/{id}/delete")
     public RedirectView deleteFriend(@PathVariable Long id) {
@@ -158,5 +153,20 @@ public class FriendRequestsController {
 
         return new RedirectView("/friends");
     }
+
+    @PostMapping("/friend-requests/{id}/deny")
+    public RedirectView deny(@PathVariable Long id) {
+
+        FriendRequest request = friendRequestRepository
+                .findById(id)
+                .orElseThrow();
+
+        request.setStatus("denied");
+
+        friendRequestRepository.save(request);
+
+        return new RedirectView("/");
+    }
+
 
 }

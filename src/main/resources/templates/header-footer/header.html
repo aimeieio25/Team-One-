@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <header class="header" th:fragment="header">
 
@@ -14,14 +15,62 @@
     <nav class="navigation">
         <ul class="nav-list">
 
-            <li class="nav-item greeting" sec:authorize="isAuthenticated()">
-                Hi, <span th:text="${#authentication.principal.fullName}">User</span>
+            <!-- Logged-in user's profile menu -->
+            <li class="nav-item user-menu" sec:authorize="isAuthenticated()">
+
+                <button type="button" class="user-menu-button">
+
+                    <!-- Greeting -->
+                    <span class="greeting">
+                        Hi, <span th:text="${user.fullName}">User</span>
+                    </span>
+
+                    <!-- Profile picture -->
+                    <span class="profile-avatar">
+
+                        <img
+                                th:if="${user.profilePicture != null}"
+                                th:src="@{'/uploads/profile-pictures/' + ${user.profilePicture}}"
+                                alt="Profile picture"
+                        >
+
+                        <!-- Default avatar if no picture has been uploaded -->
+                        <span
+                                th:unless="${user.profilePicture != null}"
+                                class="default-avatar">
+                            👤
+                        </span>
+
+                    </span>
+
+                    <!-- Dropdown arrow -->
+                    <span class="dropdown-arrow">⌄</span>
+
+                </button>
+
+                <!-- Dropdown menu -->
+                <div class="user-dropdown">
+
+                    <a th:href="@{/profile}">
+                        Profile
+                    </a>
+
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit">
+                            Log Out
+                        </button>
+                    </form>
+
+                </div>
+
             </li>
 
+            <!-- Home -->
             <li class="nav-item">
                 <a th:href="@{/}">Home</a>
             </li>
 
+            <!-- Navigation for users who are NOT logged in -->
             <li class="nav-item" sec:authorize="isAnonymous()">
                 <a th:href="@{/about}">About</a>
             </li>
@@ -35,14 +84,12 @@
             </li>
 
             <li class="nav-item" sec:authorize="isAnonymous()">
-                <a th:href="@{/oauth2/authorization/auth0}">Sign Up / Log In</a>
+                <a th:href="@{/oauth2/authorization/auth0}">
+                    Sign Up / Log In
+                </a>
             </li>
 
-
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a th:href="@{/profile}">Profile</a>
-            </li>
-
+            <!-- Navigation for logged-in users -->
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a th:href="@{/posts}">Posts</a>
             </li>
@@ -55,13 +102,79 @@
                 <a th:href="@{/search}">Search</a>
             </li>
 
+            <!-- Notification dropdown -->
+            <li class="nav-item notification-container"
+                sec:authorize="isAuthenticated()">
+
+                <button type="button"
+                        id="notification-button"
+                        class="notification-button">
+
+                    🔔
+
+                    <span th:if="${friendRequests != null and !friendRequests.isEmpty()}"
+                          th:text="${friendRequests.size()}"
+                          class="notification-count">
+                    0
+                </span>
+                </button>
+
+                <div id="notification-dropdown"
+                     class="notification-dropdown">
+
+                    <h3>Friend Requests</h3>
+
+                    <p th:if="${friendRequests == null or friendRequests.isEmpty()}">
+                        No new friend requests
+                    </p>
+
+                    <div th:each="request : ${friendRequests}"
+                         class="friend-request">
+
+                        <p>
+                            <strong th:text="${request.sender.fullName}">
+                                Friend Name
+                            </strong>
+                            wants to be your friend.
+                        </p>
+
+                        <div class="friend-request-buttons">
+
+                            <form th:action="@{/friend-requests/{id}/accept(id=${request.id})}"
+                                  method="post">
+
+                                <button type="submit">
+                                    Accept
+                                </button>
+
+                            </form>
+
+                            <form th:action="@{/friend-requests/{id}/deny(id=${request.id})}"
+                                  method="post">
+
+                                <button type="submit">
+                                    Deny
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </li>
 
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="logout-button">Log Out</button>
+                    <button type="submit" class="logout-button">
+                        Log Out
+                    </button>
                 </form>
             </li>
 
+            <!-- Theme toggle -->
             <li class="nav-item">
                 <span id="theme-toggle-container"></span>
             </li>
@@ -71,6 +184,4 @@
 
     <script th:src="@{/js/theme-toggle.js}"></script>
 
-</header>
-
-</html>
+</header> </html>>

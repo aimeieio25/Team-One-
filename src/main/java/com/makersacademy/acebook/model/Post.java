@@ -26,8 +26,11 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
+    @OneToMany(mappedBy = "post")
+    private List<PostReaction> reactions;
 
-    public Post() {}
+    public Post() {
+    }
 
     public Post(String content) {
         this.content = content;
@@ -37,6 +40,29 @@ public class Post {
         this.content = content;
         this.user = user;
     }
+
+    public long getLikeCount() {
+
+        if (reactions == null) {
+            return 0;
+        }
+
+        return reactions.stream()
+                .filter(reaction -> reaction.getReaction().equals("LIKE"))
+                .count();
+    }
+
+    public long getDislikeCount() {
+
+        if (reactions == null) {
+            return 0;
+        }
+
+        return reactions.stream()
+                .filter(reaction -> reaction.getReaction().equals("DISLIKE"))
+                .count();
+    }
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

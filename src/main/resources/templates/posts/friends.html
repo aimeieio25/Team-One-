@@ -18,11 +18,11 @@
 <div th:each="request : ${acceptedRequests}">
 
   <span th:if="${request.sender.id == currentUser.id}"
-        th:text="${request.receiver.username}">
+        th:text="${request.receiver.handle}">
   </span>
 
   <span th:unless="${request.sender.id == currentUser.id}"
-        th:text="${request.sender.username}">
+        th:text="${request.sender.handle}">
   </span>
 
   <form th:action="@{/friends/{id}/delete(id=${request.id})}" method="post">
@@ -55,7 +55,7 @@
     <strong th:text="${user.fullName}"></strong>
   </p>
 
-  <p th:text="'@' + ${#strings.substringBefore(user.username, '@')}"></p>
+  <p th:text="'@' + ${user.handle}"></p>
 
   <form action="/friend-requests" method="post">
     <input type="hidden" name="receiverEmail" th:value="${user.username}">
@@ -67,7 +67,7 @@
 <h3>Friend Requests</h3>
 
 <div th:each="request : ${requests}">
-  <span th:text="${request.sender.username}"></span>
+  <span th:text="${request.sender.handle}"></span>
 
   <form th:action="@{/friend-requests/{id}/accept(id=${request.id})}" method="post">
     <button type="submit">Accept</button>
