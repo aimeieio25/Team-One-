@@ -41,6 +41,11 @@
             Username
         </p>
 
+        <p class="post-date"
+           th:text="${#temporals.format(post.createdAt, 'dd/MM/yyyy HH:mm')}">
+        </p>
+
+
         <p th:text="${post.content}">
             Post content
         </p>
