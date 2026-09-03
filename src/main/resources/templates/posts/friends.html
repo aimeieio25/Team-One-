@@ -15,24 +15,54 @@
 
 <h1>Friends</h1>
 
-<div th:each="friend : ${friends}">
-  <p th:text="${friend.username}"></p>
+<div th:each="request : ${acceptedRequests}">
+
+  <span th:if="${request.sender.id == currentUser.id}"
+        th:text="${request.receiver.username}">
+  </span>
+
+  <span th:unless="${request.sender.id == currentUser.id}"
+        th:text="${request.sender.username}">
+  </span>
+
+  <form th:action="@{/friends/{id}/delete(id=${request.id})}" method="post">
+    <button type="submit">Remove Friend</button>
+  </form>
+
 </div>
 
 <h2>Add a Friend</h2>
 
-<form action="/friend-requests" method="post">
+<div th:if="${param.sent}" id="friend-request-message">
+  Friend request sent!
+</div>
+
+<form th:action="@{/friends}" method="get">
   <input
-          type="email"
-          name="receiverEmail"
-          placeholder="Enter user's email"
+          type="text"
+          name="query"
+          th:value="${query}"
+          placeholder="Search by name"
           required
   >
 
-  <button type="submit">Send Friend Request</button>
+  <button type="submit">Search</button>
 </form>
 
+<div th:each="user : ${searchResults}">
 
+  <p>
+    <strong th:text="${user.fullName}"></strong>
+  </p>
+
+  <p th:text="'@' + ${#strings.substringBefore(user.username, '@')}"></p>
+
+  <form action="/friend-requests" method="post">
+    <input type="hidden" name="receiverEmail" th:value="${user.username}">
+    <button type="submit">Add Friend</button>
+  </form>
+
+</div>
 
 <h3>Friend Requests</h3>
 
@@ -41,6 +71,10 @@
 
   <form th:action="@{/friend-requests/{id}/accept(id=${request.id})}" method="post">
     <button type="submit">Accept</button>
+  </form>
+
+  <form th:action="@{/friend-requests/{id}/deny(id=${request.id})}" method="post">
+    <button type="submit">Deny</button>
   </form>
 
 </div>
