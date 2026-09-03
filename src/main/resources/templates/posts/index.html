@@ -1,65 +1,89 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>Posts</title>
-        <link rel="stylesheet" href="/main.css" />
-    </head>
-    <body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-    <div th:replace="~{header-footer/header :: header}"></div>
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Posts</title>
+    <link rel="stylesheet" href="/main.css"/>
+</head>
 
-    <h1>Posts</h1>
+<body>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+<div th:replace="~{header-footer/header :: header}"></div>
 
-        <textarea id="content" th:field="*{content}" maxlength="250" required></textarea>
-        <span id="count">0</span>/250 characters
+<h1>Posts</h1>
 
-        <script>
-            const textarea = document.getElementById("content");
-            const count = document.getElementById("count");
+<form action="#" th:action="@{/posts}" th:object="${post}" method="post">
 
-            textarea.addEventListener("input", () => {
-                count.textContent = textarea.value.length;
-            });
-        </script>
+    <textarea id="content"
+              th:field="*{content}"
+              maxlength="250"
+              required
+              oninvalid="this.setCustomValidity('Characters required')"
+              oninput="this.setCustomValidity('')"></textarea>
 
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <!-- Validation error message -->
+    <p th:if="${#fields.hasErrors('content')}"
+       th:errors="*{content}"
+       class="error">
+    </p>
+
+    <span id="count">0</span>/250 characters
+
+    <script>
+        const textarea = document.getElementById("content");
+        const count = document.getElementById("count");
+
+        function updateCount() {
+            count.textContent = textarea.value.length;
+        }
+
+        textarea.addEventListener("input", updateCount);
+
+        // Set the correct count when the page loads
+        updateCount();
+    </script>
+
+    <p>
+        <input type="submit" value="Submit"/>
+        <input type="reset" value="Reset"/>
+    </p>
+
+</form>
+
+
+<!-- Display posts -->
+<div th:each="post : ${posts}" class="post">
+
+    <img th:src="@{'/uploads/profile-pictures/' + ${post.user.profilePicture}}"
+         alt="Profile picture"
+         class="profile-picture">
+
+    <p th:text="${post.user.fullName}">
+        Username
+    </p>
+
+    <p th:text="${post.content}">
+        Post content
+    </p>
+
+    <!-- Edit/Delete options -->
+    <a th:href="@{/posts/{id}/edit(id=${post.id})}">
+        Edit
+    </a>
+
+    <form th:action="@{/posts/{id}/delete(id=${post.id})}"
+          method="post"
+          style="display:inline">
+
+        <button type="submit">
+            Delete
+        </button>
+
     </form>
 
+</div>
 
-    <!--Added edit/delete options and nav for edit.html file-->
-    <div th:each="post : ${posts}" class="post">
-
-        <img th:src="@{'/uploads/profile-pictures/' + ${post.user.profilePicture}}"
-             alt="Profile picture"
-             class="profile-picture">
-
-        <p th:text="${post.user.fullName}">
-            Username
-        </p>
-
-        <p th:text="${post.content}">
-            Post content
-        </p>
-
-        <a th:href="@{/posts/{id}/edit(id=${post.id})}">
-            Edit
-        </a>
-
-        <form th:action="@{/posts/{id}/delete(id=${post.id})}"
-              method="post"
-              style="display:inline">
-
-            <button type="submit">
-                Delete
-            </button>
-
-        </form>
-
-    </div>
-
-    </body>
+</body>
 </html>
