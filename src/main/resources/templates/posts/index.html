@@ -44,11 +44,6 @@
            th:text="${#temporals.format(post.createdAt, 'dd/MM/yyyy HH:mm')}">
         </p>
 
-
-        <p th:text="${post.content}">
-            Post content
-        </p>
-
         <a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
 
         <form th:action="@{/posts/{id}/delete(id=${post.id})}"
