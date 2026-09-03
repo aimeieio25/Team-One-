@@ -7,11 +7,13 @@ import com.makersacademy.acebook.repository.CommentRepository;
 import com.makersacademy.acebook.repository.PostRepository;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -27,11 +29,18 @@ public class CommentsController {
     UserRepository userRepository;
 
     @PostMapping("/posts/{postId}/comments")
-    public String createComment(@PathVariable Long postId, @RequestParam Long userId, Comment comment) {
-        Post post = postRepository.findById(postId).orElseThrow();
-        comment.setPost(post);
+    public String createComment(@PathVariable Long postId, @ModelAttribute Comment comment, Authentication authentication) {
 
-        User user = userRepository.findById(userId).orElseThrow();
+        Post post = postRepository.findById(postId)
+                .orElseThrow();
+
+        OAuth2User oauthUser = (OAuth2User) authentication.getPrincipal();
+        String username = oauthUser.getAttribute("email");
+
+        User user = userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        comment.setPost(post);
         comment.setUser(user);
 
         commentRepository.save(comment);

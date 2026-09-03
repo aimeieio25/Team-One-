@@ -37,27 +37,56 @@
              alt="Profile picture"
              class="profile-picture">
 
-        <p th:text="${post.user.fullName}">
-            Username
-        </p>
+        <p th:text="${post.user.fullName}">Username</p>
 
-        <p th:text="${post.content}">
-            Post content
-        </p>
+        <p th:text="${post.content}">Post content</p>
 
-        <a th:href="@{/posts/{id}/edit(id=${post.id})}">
-            Edit
-        </a>
+        <a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
 
         <form th:action="@{/posts/{id}/delete(id=${post.id})}"
               method="post"
               style="display:inline">
 
-            <button type="submit">
-                Delete
-            </button>
+            <button type="submit">Delete</button>
 
         </form>
+
+        <details class="comments-dropdown">
+
+            <summary>
+                Comments
+                (<span th:text="${post.comments.size()}">0</span>)
+            </summary>
+
+            <div th:each="comment : ${post.comments}" class="comment">
+
+                <img th:src="@{'/uploads/profile-pictures/' + ${comment.user.profilePicture}}"
+                     alt="Profile picture"
+                     class="profile-picture">
+
+                <strong th:text="${comment.user.fullName}">Username</strong>
+
+                <p th:text="${comment.content}">content</p>
+
+                <form th:action="@{/comments/{commentId}/delete(commentId=${comment.id})}"
+                      method="post">
+                    <button type="submit">Delete</button>
+                </form>
+
+            </div>
+
+            <form th:action="@{/posts/{postId}/comments(postId=${post.id})}"
+                  method="post">
+
+        <textarea name="content"
+                  maxlength="250"
+                  placeholder="Write a comment..."
+                  required></textarea>
+
+                <button type="submit">Comment</button>
+            </form>
+
+        </details>
 
     </div>
 
