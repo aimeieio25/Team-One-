@@ -40,6 +40,14 @@
         <p th:text="${post.user.fullName}">Username</p>
 
         <p th:text="${post.content}">Post content</p>
+        <p class="post-date"
+           th:text="${#temporals.format(post.createdAt, 'dd/MM/yyyy HH:mm')}">
+        </p>
+
+
+        <p th:text="${post.content}">
+            Post content
+        </p>
 
         <a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
 

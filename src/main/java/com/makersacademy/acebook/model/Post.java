@@ -2,6 +2,7 @@ package com.makersacademy.acebook.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDateTime;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class Post {
     private Long id;
 
     private String content;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -32,5 +36,9 @@ public class Post {
     public Post(String content, User user) {
         this.content = content;
         this.user = user;
+    }
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
     }
 }
