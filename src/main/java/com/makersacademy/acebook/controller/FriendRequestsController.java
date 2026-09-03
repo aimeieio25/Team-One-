@@ -114,4 +114,19 @@ public class FriendRequestsController {
         return new RedirectView("/friends");
     }
 
+    @PostMapping("/friend-requests/{id}/deny")
+    public RedirectView deny(@PathVariable Long id) {
+
+        FriendRequest request = friendRequestRepository
+                .findById(id)
+                .orElseThrow();
+
+        request.setStatus("denied");
+
+        friendRequestRepository.save(request);
+
+        return new RedirectView("/");
+    }
+
+
 }

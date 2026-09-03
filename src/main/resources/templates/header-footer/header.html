@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-<header class="header" th:fragment="header">
-
+<!DOCTYPE html> <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> <header class="header" th:fragment="header">
     <link rel="stylesheet" th:href="@{/theme-toggle.css}">
 
     <div class="logo">
@@ -35,9 +31,10 @@
             </li>
 
             <li class="nav-item" sec:authorize="isAnonymous()">
-                <a th:href="@{/oauth2/authorization/auth0}">Sign Up / Log In</a>
+                <a th:href="@{/oauth2/authorization/auth0}">
+                    Sign Up / Log In
+                </a>
             </li>
-
 
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a th:href="@{/profile}">Profile</a>
@@ -55,10 +52,75 @@
                 <a th:href="@{/search}">Search</a>
             </li>
 
+            <!-- Notification dropdown -->
+            <li class="nav-item notification-container"
+                sec:authorize="isAuthenticated()">
+
+                <button type="button"
+                        id="notification-button"
+                        class="notification-button">
+
+                    🔔
+
+                    <span th:if="${friendRequests != null and !friendRequests.isEmpty()}"
+                          th:text="${friendRequests.size()}"
+                          class="notification-count">
+                    0
+                </span>
+                </button>
+
+                <div id="notification-dropdown"
+                     class="notification-dropdown">
+
+                    <h3>Friend Requests</h3>
+
+                    <p th:if="${friendRequests == null or friendRequests.isEmpty()}">
+                        No new friend requests
+                    </p>
+
+                    <div th:each="request : ${friendRequests}"
+                         class="friend-request">
+
+                        <p>
+                            <strong th:text="${request.sender.fullName}">
+                                Friend Name
+                            </strong>
+                            wants to be your friend.
+                        </p>
+
+                        <div class="friend-request-buttons">
+
+                            <form th:action="@{/friend-requests/{id}/accept(id=${request.id})}"
+                                  method="post">
+
+                                <button type="submit">
+                                    Accept
+                                </button>
+
+                            </form>
+
+                            <form th:action="@{/friend-requests/{id}/deny(id=${request.id})}"
+                                  method="post">
+
+                                <button type="submit">
+                                    Deny
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </li>
 
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="logout-button">Log Out</button>
+                    <button type="submit" class="logout-button">
+                        Log Out
+                    </button>
                 </form>
             </li>
 
@@ -69,8 +131,29 @@
         </ul>
     </nav>
 
+    <script>
+        const notificationButton =
+            document.getElementById("notification-button");
+
+        const notificationDropdown =
+            document.getElementById("notification-dropdown");
+
+        if (notificationButton && notificationDropdown) {
+
+            notificationButton.addEventListener("click", function () {
+                notificationDropdown.classList.toggle("show");
+            });
+
+            document.addEventListener("click", function (event) {
+
+                if (!event.target.closest(".notification-container")) {
+                    notificationDropdown.classList.remove("show");
+                }
+
+            });
+        }
+    </script>
+
     <script th:src="@{/js/theme-toggle.js}"></script>
 
-</header>
-
-</html>
+</header> </html>>
