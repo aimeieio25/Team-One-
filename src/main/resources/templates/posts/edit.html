@@ -8,6 +8,8 @@
 <div th:replace="~{header-footer/header :: header}">
 </div>
 
+<main class="edit-page">
+
 <h1>Edit Post</h1>
 
 <form th:action="@{/posts/{id}/edit(id=${post.id})}" th:object="${post}" method="post">
@@ -17,5 +19,9 @@
 
 </form>
 <a href="/posts">Cancel</a>
+
+</main>
+
+<div th:replace="~{header-footer/footer :: footer}"></div>
 </body>
 </html>

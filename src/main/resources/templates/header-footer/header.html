@@ -1,4 +1,9 @@
-<!DOCTYPE html> <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> <header class="header" th:fragment="header">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<header class="header" th:fragment="header">
+
     <link rel="stylesheet" th:href="@{/theme-toggle.css}">
 
     <div class="logo">
@@ -10,14 +15,62 @@
     <nav class="navigation">
         <ul class="nav-list">
 
-            <li class="nav-item greeting" sec:authorize="isAuthenticated()">
-                Hi, <span th:text="${#authentication.principal.fullName}">User</span>
+            <!-- Logged-in user's profile menu -->
+            <li class="nav-item user-menu" sec:authorize="isAuthenticated()">
+
+                <button type="button" class="user-menu-button">
+
+                    <!-- Greeting -->
+                    <span class="greeting">
+                        Hi, <span th:text="${user.fullName}">User</span>
+                    </span>
+
+                    <!-- Profile picture -->
+                    <span class="profile-avatar">
+
+                        <img
+                                th:if="${user.profilePicture != null}"
+                                th:src="@{'/uploads/profile-pictures/' + ${user.profilePicture}}"
+                                alt="Profile picture"
+                        >
+
+                        <!-- Default avatar if no picture has been uploaded -->
+                        <span
+                                th:unless="${user.profilePicture != null}"
+                                class="default-avatar">
+                            👤
+                        </span>
+
+                    </span>
+
+                    <!-- Dropdown arrow -->
+                    <span class="dropdown-arrow">⌄</span>
+
+                </button>
+
+                <!-- Dropdown menu -->
+                <div class="user-dropdown">
+
+                    <a th:href="@{/profile}">
+                        Profile
+                    </a>
+
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit">
+                            Log Out
+                        </button>
+                    </form>
+
+                </div>
+
             </li>
 
+            <!-- Home -->
             <li class="nav-item">
                 <a th:href="@{/}">Home</a>
             </li>
 
+            <!-- Navigation for users who are NOT logged in -->
             <li class="nav-item" sec:authorize="isAnonymous()">
                 <a th:href="@{/about}">About</a>
             </li>
@@ -40,6 +93,7 @@
                 <a th:href="@{/profile}">Profile</a>
             </li>
 
+            <!-- Navigation for logged-in users -->
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a th:href="@{/posts}">Posts</a>
             </li>
@@ -124,35 +178,13 @@
                 </form>
             </li>
 
+            <!-- Theme toggle -->
             <li class="nav-item">
                 <span id="theme-toggle-container"></span>
             </li>
 
         </ul>
     </nav>
-
-    <script>
-        const notificationButton =
-            document.getElementById("notification-button");
-
-        const notificationDropdown =
-            document.getElementById("notification-dropdown");
-
-        if (notificationButton && notificationDropdown) {
-
-            notificationButton.addEventListener("click", function () {
-                notificationDropdown.classList.toggle("show");
-            });
-
-            document.addEventListener("click", function (event) {
-
-                if (!event.target.closest(".notification-container")) {
-                    notificationDropdown.classList.remove("show");
-                }
-
-            });
-        }
-    </script>
 
     <script th:src="@{/js/theme-toggle.js}"></script>
 
