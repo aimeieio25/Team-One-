@@ -1,23 +1,137 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <title>Acebook</title>
     <link rel="stylesheet" href="/main.css" />
-
 </head>
 
 <body>
 
 <div th:replace="~{header-footer/header :: header}"></div>
 
+<main class="home-page">
 
-<main>
-    <h1>Welcome to Acebook</h1>
-    <p>Connect with your friends and share what's happening.</p>
+
+    <!-- HERO -->
+    <section class="home-hero">
+
+        <div class="hero-content">
+
+            <p class="hero-eyebrow">WELCOME TO ACEBOOK</p>
+
+            <h1>
+                Stay connected.<br>
+                Share your world.
+            </h1>
+
+            <p class="hero-text">
+                A place to connect with friends, share what's happening
+                and keep up with the people who matter to you.
+            </p>
+
+            <div class="hero-actions">
+                <a th:href="@{/}" class="home-button primary-button">
+                    Join Acebook
+                </a>
+
+                <a th:href="@{/explore}" class="home-button secondary-button">
+                    Explore
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- INTRODUCTION -->
+    <section class="home-intro">
+
+        <p class="section-eyebrow">CONNECT • SHARE • DISCOVER</p>
+
+        <h2>Social, without the fuss.</h2>
+
+        <p>
+            Acebook brings your friends and your community together in one
+            simple place. Share your thoughts, discover what's happening
+            and stay up to date with the people around you.
+        </p>
+
+    </section>
+
+
+    <!-- FEATURES -->
+    <section class="home-features">
+
+        <div class="home-feature">
+            <span class="feature-icon">01</span>
+
+            <h3>Share</h3>
+
+            <p>
+                Post updates, thoughts and moments from your everyday life.
+            </p>
+        </div>
+
+
+        <div class="home-feature">
+            <span class="feature-icon">02</span>
+
+            <h3>Connect</h3>
+
+            <p>
+                Find your friends and build your own Acebook community.
+            </p>
+        </div>
+
+
+        <div class="home-feature">
+            <span class="feature-icon">03</span>
+
+            <h3>Discover</h3>
+
+            <p>
+                Explore popular posts and see what's happening across Acebook.
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- QUOTE / STATEMENT -->
+    <section class="home-statement">
+
+        <div class="statement-line"></div>
+
+        <blockquote>
+            “The best moments are the ones worth sharing.”
+        </blockquote>
+
+        <div class="statement-line"></div>
+
+    </section>
+
+
+    <!-- FINAL CTA -->
+    <section class="home-cta">
+
+        <h2>Ready to join the conversation?</h2>
+
+        <p>
+            Create your Acebook account and start connecting today.
+        </p>
+
+        <a th:href="@{/}" class="home-button primary-button">
+            Get Started
+        </a>
+
+    </section>
+
+
 </main>
-
 
 <div th:replace="~{header-footer/footer :: footer}"></div>
 
