@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Long> {
-    public Optional<User> findUserByUsername(String username);
+    Optional<User> findUserByUsername(String username);
 
-    List<User> findByUsernameContainingIgnoreCaseOrFullNameContainingIgnoreCase(
+    List<User> findByUsernameContainingIgnoreCaseOrFullNameContainingIgnoreCaseOrHandleContainingIgnoreCase(
         String username,
-        String fullname
+        String fullname,
+        String handle
     );
+
+    Optional<User> findUserByHandle(String handle);
 }

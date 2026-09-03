@@ -53,7 +53,8 @@ public class FriendRequestsController {
 
         if (!query.isBlank()) {
             searchResults =
-                    userRepository.findByUsernameContainingIgnoreCaseOrFullNameContainingIgnoreCase(
+                    userRepository.findByUsernameContainingIgnoreCaseOrFullNameContainingIgnoreCaseOrHandleContainingIgnoreCase(
+                            query,
                             query,
                             query
                     );
