@@ -144,13 +144,7 @@ public class FriendRequestsController {
         return new RedirectView("/friends");
     }
 
-    @PostMapping("/friend-requests/{id}/deny")
-    public RedirectView deny(@PathVariable Long id) {
 
-        friendRequestRepository.deleteById(id);
-
-        return new RedirectView("/friends");
-    }
 
     @PostMapping("/friends/{id}/delete")
     public RedirectView deleteFriend(@PathVariable Long id) {
