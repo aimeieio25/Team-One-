@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<footer class="footer" th:fragment="footer">
+
+    <div class="footer-content">
+
+        <!-- Acebook -->
+        <div class="footer-section">
+            <h3>Acebook</h3>
+
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/about}">About</a>
+            <a th:href="@{/team}">Our Team</a>
+        </div>
+
+        <!-- Community -->
+        <div class="footer-section">
+            <h3>Community</h3>
+
+            <a th:href="@{/posts}">Posts</a>
+            <a th:href="@{/people}">People</a>
+        </div>
+
+        <!-- Support -->
+        <div class="footer-section">
+            <h3>Support</h3>
+
+            <a th:href="@{/contact}">Contact Us</a>
+            <a th:href="@{/help}">Help Centre</a>
+            <a th:href="@{/report}">Report a Problem</a>
+        </div>
+
+        <!-- Legal -->
+        <div class="footer-section">
+            <h3>Legal</h3>
+
+            <a th:href="@{/privacy}">Privacy</a>
+            <a th:href="@{/terms}">Terms</a>
+            <a th:href="@{/cookies}">Cookie Policy</a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 Acebook · Made by Team One</p>
+    </div>
+
+</footer>
+
+</html>

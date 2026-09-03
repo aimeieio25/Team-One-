@@ -19,6 +19,84 @@
 
     position: relative;
 }
+    /* ==========================
+       ACEBOOK FOOTER
+       ========================== */
+
+    .footer {
+        width: 100%;
+        background-color: #f4f1e9;
+        border-top: 1px solid #ded9cd;
+        padding: 40px 55px 20px;
+        box-sizing: border-box;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+
+        display: flex;
+        justify-content: space-between;
+        gap: 60px;
+    }
+
+    .footer-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-section h3 {
+        margin: 0 0 8px;
+
+        color: #333;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .footer-section a {
+        color: #666;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .footer-section a:hover {
+        color: #222;
+        text-decoration: underline;
+    }
+
+    .footer-bottom {
+        max-width: 1200px;
+        margin: 35px auto 0;
+        padding-top: 15px;
+
+        border-top: 1px solid #ded9cd;
+
+        text-align: center;
+    }
+
+    .footer-bottom p {
+        margin: 0;
+        color: #888;
+        font-size: 13px;
+    }
+
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1;
+    }
+
 
 
 /* ==========================
@@ -264,6 +342,3 @@
     cursor: pointer;
 }
 
-    /* ==========================
-          DARK-LIGHT MODE
-          ========================== */
