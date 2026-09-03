@@ -1,102 +1,116 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>Posts</title>
-        <link rel="stylesheet" href="/main.css" />
-    </head>
-    <body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title>Posts</title>
+    <link rel="stylesheet" href="/main.css" />
+</head>
+
+<body>
 
     <div th:replace="~{header-footer/header :: header}"></div>
 
     <main class="posts">
 
-    <h1>Posts</h1>
+        <h1>Posts</h1>
 
-    <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
 
-        <textarea id="content" th:field="*{content}" maxlength="250" required></textarea>
-        <span id="count">0</span>/250 characters
+            <textarea id="content" th:field="*{content}" maxlength="250" required></textarea>
+            <span id="count">0</span>/250 characters
 
-        <script>
-            const textarea = document.getElementById("content");
-            const count = document.getElementById("count");
+            <script>
+                const textarea = document.getElementById("content");
+                const count = document.getElementById("count");
 
-            textarea.addEventListener("input", () => {
-                count.textContent = textarea.value.length;
-            });
-        </script>
+                textarea.addEventListener("input", () => {
+                    count.textContent = textarea.value.length;
+                });
+            </script>
 
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
-
-
-    <!--Added edit/delete options and nav for edit.html file-->
-    <div th:each="post : ${posts}" class="post">
-
-        <img th:src="@{'/uploads/profile-pictures/' + ${post.user.profilePicture}}"
-             alt="Profile picture"
-             class="profile-picture">
-
-        <p th:text="${post.user.fullName}">Username</p>
-
-        <p th:text="${post.content}">Post content</p>
-        <p class="post-date"
-           th:text="${#temporals.format(post.createdAt, 'dd/MM/yyyy HH:mm')}">
-        </p>
-
-        <a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
-
-        <form th:action="@{/posts/{id}/delete(id=${post.id})}"
-              method="post"
-              style="display:inline">
-
-            <button type="submit">Delete</button>
-
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
-        <details class="comments-dropdown">
 
-            <summary>
-                Comments
-                (<span th:text="${post.comments.size()}">0</span>)
-            </summary>
+        <!--Added edit/delete options and nav for edit.html file-->
+        <div th:each="post : ${posts}" class="post">
 
-            <div th:each="comment : ${post.comments}" class="comment">
+            <img th:src="@{'/uploads/profile-pictures/' + ${post.user.profilePicture}}" alt="Profile picture"
+                class="profile-picture">
 
-                <img th:src="@{'/uploads/profile-pictures/' + ${comment.user.profilePicture}}"
-                     alt="Profile picture"
-                     class="profile-picture">
+            <p th:text="${post.user.fullName}">Username</p>
 
-                <strong th:text="${comment.user.fullName}">Username</strong>
+            <p th:text="${post.content}">Post content</p>
+            <p class="post-date" th:text="${#temporals.format(post.createdAt, 'dd/MM/yyyy HH:mm')}">
+            </p>
 
-                <p th:text="${comment.content}">content</p>
+            <div class="post-reactions">
 
-                <form th:action="@{/comments/{commentId}/delete(commentId=${comment.id})}"
-                      method="post">
-                    <button type="submit">Delete</button>
+                <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post" style="display:inline">
+
+                    <button type="submit">
+                        👍 Like
+                        (<span th:text="${post.likeCount}">0</span>)
+                    </button>
+
+                </form>
+
+                <form th:action="@{/posts/{id}/dislike(id=${post.id})}" method="post" style="display:inline">
+
+                    <button type="submit">
+                        👎 Dislike
+                        (<span th:text="${post.dislikeCount}">0</span>)
+                    </button>
+
                 </form>
 
             </div>
 
-            <form th:action="@{/posts/{postId}/comments(postId=${post.id})}"
-                  method="post">
+            <a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
 
-        <textarea name="content"
-                  maxlength="250"
-                  placeholder="Write a comment..."
-                  required></textarea>
+            <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post" style="display:inline">
 
-                <button type="submit">Comment</button>
+                <button type="submit">Delete</button>
+
             </form>
 
-        </details>
+            <details class="comments-dropdown">
 
-    </div>
+                <summary>
+                    Comments
+                    (<span th:text="${post.comments.size()}">0</span>)
+                </summary>
+
+                <div th:each="comment : ${post.comments}" class="comment">
+
+                    <img th:src="@{'/uploads/profile-pictures/' + ${comment.user.profilePicture}}" alt="Profile picture"
+                        class="profile-picture">
+
+                    <strong th:text="${comment.user.fullName}">Username</strong>
+
+                    <p th:text="${comment.content}">content</p>
+
+                    <form th:action="@{/comments/{commentId}/delete(commentId=${comment.id})}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+
+                </div>
+
+                <form th:action="@{/posts/{postId}/comments(postId=${post.id})}" method="post">
+
+                    <textarea name="content" maxlength="250" placeholder="Write a comment..." required></textarea>
+
+                    <button type="submit">Comment</button>
+                </form>
+
+            </details>
+
+        </div>
     </main>
 
     <div th:replace="~{header-footer/footer :: footer}"></div>
 
-    </body>
+</body>
+
 </html>
