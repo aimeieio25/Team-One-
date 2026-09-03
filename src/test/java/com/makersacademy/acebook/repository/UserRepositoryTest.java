@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
@@ -22,6 +23,19 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
+    public void userGetsCreated() {
+        User user = new User("fred@gmail.com", "Fred Tester");
+
+        User savedUser = userRepository.save(user);
+
+        User foundUser = userRepository
+                .findById(savedUser.getId())
+                .orElseThrow();
+
+        assertEquals("fred@gmail.com", foundUser.getUsername());
+        assertEquals("Fred Tester", foundUser.getFullName());
+    }
+
     public void userCanChangeFullName() {
         User user = new User("test@example.com", "Old Name");
         userRepository.save(user);
@@ -37,6 +51,15 @@ public class UserRepositoryTest {
     }
 
     @Test
+    public void userGetsDeleted() {
+        User user = new User("fred@gmail.com", "Fred Tester");
+
+        User savedUser = userRepository.save(user);
+
+        userRepository.deleteById(savedUser.getId());
+
+        assertFalse(userRepository.existsById(savedUser.getId()));
+    }
     void findsUserByHandle() {
         User user = new User("test@example.com", "Test User");
         user.setHandle("testuser");

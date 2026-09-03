@@ -10,6 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -21,6 +22,24 @@ public class PostRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Test
+    public void postGetsCreated() {
+        User user = new User();
+        user.setUsername("fred@gmail.com");
+        userRepository.save(user);
+
+        Post post = new Post("Post");
+        post.setUser(user);
+
+        Post savedPost = postRepository.save(post);
+
+        Post foundPost = postRepository
+                .findById(savedPost.getId())
+                .orElseThrow();
+
+        assertEquals("Post", foundPost.getContent());
+    }
 
     @Test
     public void postBelongsToUser() {
@@ -55,5 +74,21 @@ public class PostRepositoryTest {
         assertEquals("Third", posts.get(0).getContent());
         assertEquals("Second", posts.get(1).getContent());
         assertEquals("First", posts.get(2).getContent());
+    }
+
+    @Test
+    public void postGetsDeleted() {
+        User user = new User();
+        user.setUsername("fred@gmail.com");
+        userRepository.save(user);
+
+        Post post = new Post("Post");
+        post.setUser(user);
+
+        Post savedPost = postRepository.save(post);
+
+        postRepository.deleteById(savedPost.getId());
+
+        assertFalse(postRepository.existsById(savedPost.getId()));
     }
 }
