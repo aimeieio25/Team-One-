@@ -2340,6 +2340,86 @@ HOME PAGE
     }
 
     /* ==========================
+          DARK-LIGHT MODE
+          ========================== */
+
+
+
+
+
+
+    /*=======================
+    FRIEND-REQUEST-ALERT-BELL
+     */
+
+    .notification-container {
+        position: relative;
+    }
+
+    .notification-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+        position: relative;
+    }
+
+    .notification-count {
+        position: absolute;
+        top: -5px;
+        right: -8px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        min-width: 18px;
+        height: 18px;
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .notification-dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        width: 300px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+    }
+
+    .notification-dropdown.show {
+        display: block;
+    }
+
+    .notification-dropdown h3 {
+        margin-top: 0;
+    }
+
+    .friend-request {
+        border-top: 1px solid #ddd;
+        padding: 10px 0;
+    }
+
+    .friend-request p {
+        margin: 0 0 10px 0;
+    }
+
+    .friend-request-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .friend-request-buttons button {
+        cursor: pointer;
+        padding: 5px 10px;
+    }
+
     RESPONSIVE
     ========================== */
 
