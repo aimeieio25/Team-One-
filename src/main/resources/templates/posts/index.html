@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>Posts</title>
     <link rel="stylesheet" href="/main.css"/>
 </head>
+
 <body>
 
 <div th:replace="~{header-footer/header :: header}"></div>
@@ -17,7 +19,9 @@
     <textarea id="content"
               th:field="*{content}"
               maxlength="250"
-              required></textarea>
+              required
+              oninvalid="this.setCustomValidity('Characters required')"
+              oninput="this.setCustomValidity('')"></textarea>
 
     <!-- Validation error message -->
     <p th:if="${#fields.hasErrors('content')}"
@@ -31,39 +35,40 @@
         const textarea = document.getElementById("content");
         const count = document.getElementById("count");
 
-        textarea.addEventListener("input", () => {
+        function updateCount() {
             count.textContent = textarea.value.length;
-        });
+        }
+
+        textarea.addEventListener("input", updateCount);
+
+        // Set the correct count when the page loads
+        updateCount();
     </script>
 
     <p>
         <input type="submit" value="Submit"/>
         <input type="reset" value="Reset"/>
     </p>
+
 </form>
 
 
-    <!--Added edit/delete options and nav for edit.html file-->
-    <div th:each="post : ${posts}" class="post">
-
-        <img th:src="@{'/uploads/profile-pictures/' + ${post.user.profilePicture}}"
-             alt="Profile picture"
-             class="profile-picture">
-
-        <p th:text="${post.user.fullName}">
-            Username
-        </p>
-
-        <p th:text="${post.content}">
-            Post content
-        </p>
-<!-- Added edit/delete options and nav for edit.html file -->
+<!-- Display posts -->
 <div th:each="post : ${posts}" class="post">
+
+    <img th:src="@{'/uploads/profile-pictures/' + ${post.user.profilePicture}}"
+         alt="Profile picture"
+         class="profile-picture">
+
+    <p th:text="${post.user.fullName}">
+        Username
+    </p>
 
     <p th:text="${post.content}">
         Post content
     </p>
 
+    <!-- Edit/Delete options -->
     <a th:href="@{/posts/{id}/edit(id=${post.id})}">
         Edit
     </a>
