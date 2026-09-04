@@ -2,6 +2,7 @@ package com.makersacademy.acebook.controller;
 
 import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.acebook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
@@ -17,6 +18,9 @@ public class ProfileController {
 
         @Autowired
         UserRepository userRepository;
+
+        @Autowired
+        PostRepository postRepository;
 
         @GetMapping("/profile")
         public String profile(Model model) {
@@ -40,11 +44,12 @@ public class ProfileController {
         public String viewUserProfile(
                         @PathVariable Long id,
                         Model model) {
-                User user = userRepository
+                User viewedUser = userRepository
                                 .findById(id)
                                 .orElseThrow();
 
-                model.addAttribute("user", user);
+                model.addAttribute("viewedUser", viewedUser);
+                model.addAttribute("userPosts", postRepository.findByUserOrderByIdDesc(viewedUser));
 
                 return "profile/user-profile";
         }

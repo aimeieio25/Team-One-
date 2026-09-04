@@ -4,35 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
+    <link rel="icon" type="image/png" th:href="@{/logo.png}">
     <link rel="stylesheet" href="/main.css">
 </head>
 
-<body>
+<body class="app-nav-body">
 
 <div th:replace="~{header-footer/header :: header}"></div>
 
-<main class="profile">
+<main class="public-profile">
 
-    <h1>User Profile</h1>
-
-    <div class="profile-picture-section">
-
-        <div th:if="${user.profilePicture != null}">
+    <section class="public-profile-header">
+        <div class="public-profile-avatar" th:if="${viewedUser.profilePicture != null}">
             <img
-                    th:src="@{'/uploads/profile-pictures/' + ${user.profilePicture}}"
+                    th:src="@{'/uploads/profile-pictures/' + ${viewedUser.profilePicture}}"
                     alt="Profile Picture"
                     class="profile-picture">
         </div>
 
-    </div>
+        <div class="public-profile-avatar public-profile-avatar-fallback"
+             th:unless="${viewedUser.profilePicture != null}" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4"></circle>
+                <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
+            </svg>
+        </div>
 
-    <h2 th:text="${user.fullName}"></h2>
+        <div class="public-profile-identity">
+            <h1 th:text="${viewedUser.fullName}">User name</h1>
+            <p th:text="'@' + ${viewedUser.handle}">@handle</p>
+        </div>
 
-    <form th:action="@{/friends/add/{id}(id=${user.id})}" method="post">
-        <button type="submit">
-            Add Friend
-        </button>
-    </form>
+        <form class="public-profile-friend-action"
+              th:if="${user != null and user.id != viewedUser.id}"
+              th:action="@{/friend-requests}" method="post">
+            <input type="hidden" name="receiverEmail" th:value="${viewedUser.username}">
+            <button type="submit">Add friend</button>
+        </form>
+    </section>
+
+    <section class="public-profile-posts">
+        <div class="public-profile-posts-heading">
+            <h2>Posts</h2>
+            <span th:text="${userPosts.size()}">0</span>
+        </div>
+
+        <p class="public-profile-empty" th:if="${userPosts.isEmpty()}">
+            This user has not shared any posts yet.
+        </p>
+
+        <article class="public-profile-post" th:each="post : ${userPosts}">
+            <p th:text="${post.content}">Post content</p>
+            <time th:text="${#temporals.format(post.createdAt, 'dd MMM yyyy, HH:mm')}">
+                Post timestamp
+            </time>
+        </article>
+    </section>
 
 </main>
 

@@ -4,69 +4,86 @@
 <head>
     <meta charset="UTF-8">
     <title>My Profile</title>
+    <link rel="icon" type="image/png" th:href="@{/logo.png}">
     <link rel="stylesheet" href="/main.css">
 </head>
 
-<body>
+<body class="app-nav-body">
 
     <div th:replace="~{header-footer/header :: header}"></div>
 
     <main class="profile">
 
-        <h1>User Information</h1>
+        <header class="profile-heading">
+            <h1>Profile settings</h1>
+            <p>Manage how you appear across Acebook.</p>
+        </header>
 
-        <!-- Profile Picture -->
         <div class="profile-picture-section">
-
-            <h2>Profile Picture</h2>
-
-            <!-- Show current profile picture if one exists -->
-            <div th:if="${user.profilePicture != null}">
+            <div class="profile-avatar-preview" th:if="${user.profilePicture != null}">
                 <img th:src="@{'/uploads/profile-pictures/' + ${user.profilePicture}}" alt="Profile Picture"
                     class="profile-picture">
             </div>
 
-            <!-- Upload profile picture -->
-            <form th:action="@{/profile/upload-picture}" method="post" enctype="multipart/form-data">
+            <div class="profile-avatar-preview profile-avatar-fallback"
+                 th:unless="${user.profilePicture != null}" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="4"></circle>
+                    <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
+                </svg>
+            </div>
 
-                <input type="file" name="profilePicture" accept="image/png,image/jpeg,image/webp" required>
-
-                <button type="submit">Upload Picture</button>
-
+            <form class="profile-photo-form" th:action="@{/profile/upload-picture}"
+                  method="post" enctype="multipart/form-data">
+                <div>
+                    <h2>Profile picture</h2>
+                    <p>Upload a PNG, JPEG, or WebP image.</p>
+                </div>
+                <input id="profilePicture" type="file" name="profilePicture"
+                       accept="image/png,image/jpeg,image/webp" required>
+                <button type="submit">Upload new picture</button>
             </form>
-
         </div>
 
-        <p th:if="${param.handleTaken}">
+        <p class="profile-alert profile-alert-error" th:if="${param.handleTaken}">
             That handle is already taken.
         </p>
 
-        <p th:if="${param.updated}">
+        <p class="profile-alert profile-alert-success" th:if="${param.updated}">
             Profile updated successfully!
         </p>
 
-        <form th:action="@{/profile}" method="post">
+        <form class="profile-details-form" th:action="@{/profile}" method="post">
 
-            <label for="fullName">Full Name:</label>
-            <input type="text"
-                   id="fullName"
-                   name="fullName"
-                   th:value="${user.fullName}"
-                   required>
+            <div class="profile-form-heading">
+                <h2>Personal information</h2>
+                <p>Update your public name and unique handle.</p>
+            </div>
 
-            <label for="handle">Handle:</label>
-            <input type="text"
-                   id="handle"
-                   name="handle"
-                   th:value="${user.handle}"
-                   required>
+            <div class="form-field">
+                <label for="fullName">Full name</label>
+                <input type="text" id="fullName" name="fullName"
+                       th:value="${user.fullName}" autocomplete="name" required>
+            </div>
 
-            <p>
-                Email:
-                <span th:text="${user.username}"></span>
-            </p>
+            <div class="form-field">
+                <label for="handle">Handle</label>
+                <div class="handle-input">
+                    <span aria-hidden="true">@</span>
+                    <input type="text" id="handle" name="handle"
+                           th:value="${user.handle}" autocomplete="username" required>
+                </div>
+            </div>
 
-            <button type="submit">Save Changes</button>
+            <div class="form-field">
+                <span class="field-label">Email</span>
+                <div class="readonly-field" th:text="${user.username}"></div>
+                <small>Your login email is managed by your account provider.</small>
+            </div>
+
+            <div class="profile-form-actions">
+                <button type="submit">Save changes</button>
+            </div>
 
         </form>
 

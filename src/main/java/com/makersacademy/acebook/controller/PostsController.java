@@ -12,8 +12,11 @@ import com.makersacademy.acebook.model.User;
 import com.makersacademy.acebook.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class PostsController {
@@ -52,9 +55,11 @@ public class PostsController {
     }
     //Edit and Delete Post functionality
     @GetMapping("/posts/{id}/edit")
-    public String edit(@PathVariable Long id, Model model) {
+    public String edit(@PathVariable Long id, Model model, Authentication authentication) {
         Post post = repository.findById(id)
                 .orElseThrow();
+
+        requireOwner(post, authentication);
 
         model.addAttribute("post", post);
 
@@ -63,10 +68,13 @@ public class PostsController {
     @PostMapping("/posts/{id}/edit")
     public RedirectView update(
             @PathVariable Long id,
-            @ModelAttribute Post post) {
+            @ModelAttribute Post post,
+            Authentication authentication) {
 
         Post existingPost = repository.findById(id)
                 .orElseThrow();
+
+        requireOwner(existingPost, authentication);
 
         existingPost.setContent(post.getContent());
 
@@ -75,10 +83,29 @@ public class PostsController {
         return new RedirectView("/posts");
     }
     @PostMapping("/posts/{id}/delete")
-    public RedirectView delete(@PathVariable Long id) {
+    public RedirectView delete(@PathVariable Long id, Authentication authentication) {
 
-        repository.deleteById(id);
+        Post post = repository.findById(id)
+                .orElseThrow();
+
+        requireOwner(post, authentication);
+
+        repository.delete(post);
 
         return new RedirectView("/posts");
+    }
+
+    private void requireOwner(Post post, Authentication authentication) {
+        if (authentication == null || !(authentication.getPrincipal() instanceof OAuth2User oauthUser)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
+        String username = oauthUser.getAttribute("email");
+        User currentUser = userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN));
+
+        if (post.getUser() == null || !Objects.equals(post.getUser().getId(), currentUser.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
     }
 }
