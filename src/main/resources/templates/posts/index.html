@@ -36,8 +36,18 @@
         <!--Added edit/delete options and nav for edit.html file-->
         <div th:each="post : ${posts}" class="post">
 
-            <img th:src="@{'/uploads/profile-pictures/' + ${post.user.profilePicture}}" alt="Profile picture"
-                class="profile-picture">
+            <!-- 1. Show the uploaded picture ONLY if it is not null or empty -->
+            <img th:if="${post.user.profilePicture != null and !#strings.isEmpty(post.user.profilePicture)}"
+                 th:src="@{'/uploads/profile-pictures/' + ${post.user.profilePicture}}"
+                 alt="Profile picture"
+                 class="profile-picture">
+
+            <!-- 2. Show the default avatar ONLY if the profile picture is null or empty -->
+            <span th:unless="${post.user.profilePicture != null and !#strings.isEmpty(post.user.profilePicture)}"
+                  class="default-avatar">
+    👤
+</span>
+
 
             <p th:text="${post.user.fullName}">Username</p>
 
