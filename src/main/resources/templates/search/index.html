@@ -4,60 +4,79 @@
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
+    <link rel="icon" type="image/png" th:href="@{/logo.png}">
     <link rel="stylesheet" href="/main.css">
 </head>
 
-<body>
+<body class="app-nav-body">
 
 <div th:replace="~{header-footer/header :: header}"></div>
 
 <main class="search">
-<h1>Search</h1>
+    <header class="search-heading">
+        <h1>Search</h1>
+        <p th:if="${query.isBlank()}">Find people and posts across Acebook.</p>
+        <p th:unless="${query.isBlank()}">
+            Results for <strong th:text="'“' + ${query} + '”'">“query”</strong>
+        </p>
+    </header>
 
-<form th:action="@{/search}" method="get">
-    <input
-            type="text"
-            name="query"
-            th:value="${query}"
-            placeholder="Search users or posts..."
-            required>
+    <div class="search-start" th:if="${query.isBlank()}">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-4-4"></path>
+        </svg>
+        <p>Use the search bar in the navigation to get started.</p>
+    </div>
 
-    <button type="submit">Search</button>
-</form>
+    <div class="search-results" th:unless="${query.isBlank()}">
+        <section class="search-section">
+            <div class="search-section-heading">
+                <h2>People</h2>
+                <span th:text="${users.size()}">0</span>
+            </div>
 
-<div th:if="${query != ''}">
+            <p class="search-empty" th:if="${users.isEmpty()}">No people matched your search.</p>
 
-    <h2>Users</h2>
-
-    <p th:if="${#lists.isEmpty(users)}">
-        No users found.
-    </p>
-
-    <div th:each="user : ${users}">
-        <p>
-            Name:
-            <a  th:href="@{/profile/{id}(id=${user.id})}"
-                th:text="${user.fullName}">
+            <a class="search-person" th:each="resultUser : ${users}"
+               th:href="@{/profile/{id}(id=${resultUser.id})}">
+                <img th:if="${resultUser.profilePicture != null}"
+                     th:src="@{'/uploads/profile-pictures/' + ${resultUser.profilePicture}}"
+                     alt="" class="search-avatar">
+                <span class="search-avatar search-avatar-fallback"
+                      th:unless="${resultUser.profilePicture != null}" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="8" r="4"></circle>
+                        <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
+                    </svg>
+                </span>
+                <span class="search-person-details">
+                    <strong th:text="${resultUser.fullName}">Name</strong>
+                    <small th:text="'@' + ${resultUser.handle}">@handle</small>
+                </span>
+                <span class="search-view-label">View profile</span>
             </a>
-        </p>
+        </section>
+
+        <section class="search-section">
+            <div class="search-section-heading">
+                <h2>Posts</h2>
+                <span th:text="${posts.size()}">0</span>
+            </div>
+
+            <p class="search-empty" th:if="${posts.isEmpty()}">No posts matched your search.</p>
+
+            <article class="search-post" th:each="post : ${posts}">
+                <div class="search-post-author" th:if="${post.user != null}">
+                    <a th:href="@{/profile/{id}(id=${post.user.id})}"
+                       th:text="${post.user.fullName}">Name</a>
+                    <span th:text="'@' + ${post.user.handle}">@handle</span>
+                </div>
+                <p th:text="${post.content}">Post content</p>
+                <time th:text="${#temporals.format(post.createdAt, 'dd MMM yyyy, HH:mm')}">Timestamp</time>
+            </article>
+        </section>
     </div>
-
-    <h2>Posts</h2>
-
-    <p th:if="${#lists.isEmpty(posts)}">
-        No posts found.
-    </p>
-
-    <div th:each="post : ${posts}">
-        <p th:text="${post.content}"></p>
-
-        <p th:if="${post.user != null}">
-            Posted by:
-            <span th:text="${post.user.fullName}"></span>
-        </p>
-    </div>
-
-</div>
 </main>
 
 <div th:replace="~{header-footer/footer :: footer}"></div>

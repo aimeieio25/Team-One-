@@ -4,21 +4,33 @@
 <head lang="en">
     <meta charset="UTF-8" />
     <title>Posts</title>
+    <link rel="icon" type="image/png" th:href="@{/logo.png}">
     <link rel="stylesheet" href="/main.css" />
 </head>
 
-<body>
+<body class="app-nav-body">
 
     <div th:replace="~{header-footer/header :: header}"></div>
 
     <main class="posts">
 
-        <h1>Posts</h1>
+        <div class="feed-heading">
+            <h1>Home</h1>
+            <p>See what your community is sharing.</p>
+        </div>
 
-        <form action="#" th:action="@{/posts}" th:object="${post}" method="post">
+        <form class="post-composer" action="#" th:action="@{/posts}" th:object="${post}" method="post">
 
-            <textarea id="content" th:field="*{content}" maxlength="250" required></textarea>
-            <span id="count">0</span>/250 characters
+            <textarea id="content" th:field="*{content}" maxlength="250"
+                      placeholder="What's happening?" aria-label="Create a post" required></textarea>
+
+            <div class="composer-footer">
+                <span class="character-count"><span id="count">0</span>/250</span>
+                <div class="composer-actions">
+                    <input type="reset" value="Clear" />
+                    <input type="submit" value="Post" />
+                </div>
+            </div>
 
             <script>
                 const textarea = document.getElementById("content");
@@ -27,33 +39,51 @@
                 textarea.addEventListener("input", () => {
                     count.textContent = textarea.value.length;
                 });
+
+                textarea.form.addEventListener("reset", () => {
+                    count.textContent = "0";
+                });
             </script>
 
-            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
 
 
         <!--Added edit/delete options and nav for edit.html file-->
         <div th:each="post : ${posts}" class="post">
 
-            <!-- 1. Show the uploaded picture ONLY if it is not null or empty -->
-            <img th:if="${post.user.profilePicture != null and !#strings.isEmpty(post.user.profilePicture)}"
-                 th:src="@{'/uploads/profile-pictures/' + ${post.user.profilePicture}}"
-                 alt="Profile picture"
-                 class="profile-picture">
+            <div class="post-header">
+                <img th:src="@{'/uploads/profile-pictures/' + ${post.user.profilePicture}}" alt="Profile picture"
+                     th:if="${post.user.profilePicture != null and !post.user.profilePicture.isBlank()}"
+                     class="profile-picture">
+                <span class="profile-picture default-post-avatar"
+                      th:unless="${post.user.profilePicture != null and !post.user.profilePicture.isBlank()}"
+                      aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="8" r="4"></circle>
+                        <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
+                    </svg>
+                </span>
+                <div class="post-author-details">
+                    <p class="post-author" th:text="${post.user.fullName}">Username</p>
+                    <p class="post-date" th:text="${#temporals.format(post.createdAt, 'dd MMM yyyy · HH:mm')}"></p>
+                </div>
 
-            <!-- 2. Show the default avatar ONLY if the profile picture is null or empty -->
-            <span th:unless="${post.user.profilePicture != null and !#strings.isEmpty(post.user.profilePicture)}"
-                  class="default-avatar">
-    👤
-</span>
+                <details class="post-menu"
+                         th:if="${user != null and post.user != null and user.id == post.user.id}">
+                    <summary aria-label="Post options">&hellip;</summary>
+                    <div class="post-menu-dropdown">
+                        <a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit post</a>
+                        <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post">
+                            <button type="submit">Delete post</button>
+                        </form>
+                    </div>
+                </details>
+            </div>
 
+            <p class="post-content" th:text="${post.content}">Post content</p>
+            <p class="post-timestamp" th:text="${#temporals.format(post.createdAt, 'dd MMM yyyy, HH:mm')}"></p>
 
-            <p th:text="${post.user.fullName}">Username</p>
-
-            <p th:text="${post.content}">Post content</p>
-            <p class="post-date" th:text="${#temporals.format(post.createdAt, 'dd/MM/yyyy HH:mm')}">
-            </p>
+            <div class="post-action-row">
 
             <div class="post-reactions">
 
@@ -77,18 +107,10 @@
 
             </div>
 
-            <a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
-
-            <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post" style="display:inline">
-
-                <button type="submit">Delete</button>
-
-            </form>
-
             <details class="comments-dropdown">
 
                 <summary>
-                    Comments
+                    Comment
                     (<span th:text="${post.comments.size()}">0</span>)
                 </summary>
 
@@ -101,9 +123,12 @@
 
                     <p th:text="${comment.content}">content</p>
 
-                    <form th:action="@{/comments/{commentId}/delete(commentId=${comment.id})}" method="post">
-                        <button type="submit">Delete</button>
-                    </form>
+                    <details class="comment-menu">
+                        <summary aria-label="Comment options">&hellip;</summary>
+                        <form th:action="@{/comments/{commentId}/delete(commentId=${comment.id})}" method="post">
+                            <button type="submit">Delete comment</button>
+                        </form>
+                    </details>
 
                 </div>
 
@@ -115,6 +140,8 @@
                 </form>
 
             </details>
+
+            </div>
 
         </div>
     </main>

@@ -1,10 +1,12 @@
 package com.makersacademy.acebook.repository;
 
 import com.makersacademy.acebook.model.Post;
+import com.makersacademy.acebook.model.User;
 import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PostRepository extends CrudRepository<Post, Long> {
     List<Post> findAllByOrderByIdDesc();
+    List<Post> findByUserOrderByIdDesc(User user);
     List<Post> findByContentContainingIgnoreCaseOrderByIdDesc(String content);
 }
